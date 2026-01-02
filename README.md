@@ -188,7 +188,7 @@ Open Wallet follows a modular, service-oriented architecture designed for separa
                              │
          ┌───────────────────┴───────────────────┐
          │                                       │
-┌────────▼────────┐                   ┌─────────▼─────────┐
+┌────────▼────────┐                   ┌──────── ▼─────────┐
 │  Wallet Service │                   │  Payment Service  │
 └────────┬────────┘                   └─────────┬─────────┘
          │                                       │
@@ -196,10 +196,10 @@ Open Wallet follows a modular, service-oriented architecture designed for separa
                        │             │
 ┌──────────────────────▼─────────────┴─────────────────────┐
 │                 Backend Service Dependencies             │
-│   ┌──────────────────────────┐ ┌──────────────────────┐   │
-│   │ Tokenization Provider    │ │ Database (MongoDB/   │   │
-│   │    (e.g., Basis Theory)  │ │   PostgreSQL)      │   │
-│   └──────────────────────────┘ └──────────────────────┘   │
+│   ┌──────────────────────────┐ ┌──────────────────────┐  │
+│   │ Tokenization Provider    │ │ Database (MongoDB/   │  │
+│   │    (e.g., Basis Theory)  │ │   PostgreSQL)        │  │
+│   └──────────────────────────┘ └──────────────────────┘  │
 └──────────────────────────────────────────────────────────┘
 
 
