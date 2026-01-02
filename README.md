@@ -174,35 +174,6 @@ System Architecture
 
 Open Wallet follows a modular, service-oriented architecture designed for separation of concerns and independent scalability. Communication between layers is secured via HTTPS/TLS, with an API Gateway handling primary concerns like authentication and rate limiting before requests are routed to the appropriate backend service.
 
-┌─────────────────────────────────────────────────────────┐
-│              Mobile Applications (iOS/Android)          │
-│        (Integrates with Apple Pay & Google Pay)         │
-└────────────────────────────┬────────────────────────────┘
-                             │
-                             │ HTTPS/TLS
-                             │
-┌────────────────────────────▼────────────────────────────┐
-│                        API Gateway                      │
-│            (Authentication & Rate Limiting)             │
-└────────────────────────────┬────────────────────────────┘
-                             │
-         ┌───────────────────┴───────────────────┐
-         │                                       │
-┌────────▼────────┐                   ┌──────── ▼─────────┐
-│  Wallet Service │                   │  Payment Service  │
-└────────┬────────┘                   └─────────┬─────────┘
-         │                                       │
-         └─────────────┬─────────────┬───────────┘
-                       │             │
-┌──────────────────────▼─────────────┴─────────────────────┐
-│                 Backend Service Dependencies             │
-│   ┌──────────────────────────┐ ┌──────────────────────┐  │
-│   │ Tokenization Provider    │ │ Database (MongoDB/   │  │
-│   │    (e.g., Basis Theory)  │ │   PostgreSQL)        │  │
-│   └──────────────────────────┘ └──────────────────────┘  │
-└──────────────────────────────────────────────────────────┘
-
-
 Key Components
 
 The architecture is composed of five distinct services, each with a dedicated responsibility:
