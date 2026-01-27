@@ -1,7 +1,7 @@
 {
-  "name": "@open-wallet/core",
+  "name": "@open-commerce-protocol/core",
   "version": "1.0.0",
-  "description": "A secure, tokenized mobile wallet system optimized for vault transactions",
+  "description": "The open source standard for agentic commerce, A2A payments, and universal commerce protocol (UCP) transactions",
   "main": "src/index.js",
   "types": "types/index.d.ts",
   "engines": {

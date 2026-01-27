@@ -78,14 +78,14 @@ const config = {
   // Payment providers
   applePay: {
     merchantId: process.env.APPLE_PAY_MERCHANT_ID,
-    merchantName: process.env.APPLE_PAY_MERCHANT_NAME || 'Open Wallet',
+    merchantName: process.env.APPLE_PAY_MERCHANT_NAME || 'Open Commerce Protocol',
     countryCode: 'US',
     supportedNetworks: ['visa', 'mastercard', 'amex', 'discover']
   },
 
   googlePay: {
     merchantId: process.env.GOOGLE_PAY_MERCHANT_ID,
-    merchantName: process.env.GOOGLE_PAY_MERCHANT_NAME || 'Open Wallet',
+    merchantName: process.env.GOOGLE_PAY_MERCHANT_NAME || 'Open Commerce Protocol',
     environment: process.env.GOOGLE_PAY_ENVIRONMENT || 'TEST'
   },
 
@@ -117,7 +117,7 @@ function validateConfig() {
   }
 
   if (config.security.jwtSecret === 'change-this-in-production' &&
-      config.server.nodeEnv === 'production') {
+    config.server.nodeEnv === 'production') {
     errors.push('JWT_SECRET must be changed in production');
   }
 

@@ -15,7 +15,7 @@ const transactionSchema = new mongoose.Schema({
   type: {
     type: String,
     required: true,
-    enum: ['credit', 'debit', 'transfer_in', 'transfer_out', 'refund'],
+    enum: ['credit', 'debit', 'transfer_in', 'transfer_out', 'refund', 'a2a_transfer', 'blockchain_transfer'],
     index: true
   },
   amount: {
@@ -53,6 +53,34 @@ const transactionSchema = new mongoose.Schema({
     sparse: true,
     index: true
   },
+  agentId: {
+    type: String,
+    sparse: true,
+    index: true
+  },
+  counterpartyAgentId: {
+    type: String,
+    sparse: true,
+    index: true
+  },
+  ucpPayload: {
+    type: Map,
+    of: mongoose.Schema.Types.Mixed,
+    default: {}
+  },
+  hash: {
+    type: String,
+    sparse: true,
+    index: true
+  },
+  network: {
+    type: String,
+    sparse: true
+  },
+  gasUsed: {
+    type: Number,
+    sparse: true
+  },
   metadata: {
     type: Map,
     of: mongoose.Schema.Types.Mixed,
@@ -83,7 +111,7 @@ transactionSchema.index({ createdAt: -1 });
 transactionSchema.index({ transferId: 1 }, { sparse: true });
 
 // Virtual for transaction ID
-transactionSchema.virtual('id').get(function() {
+transactionSchema.virtual('id').get(function () {
   return this._id.toString();
 });
 
@@ -98,27 +126,27 @@ transactionSchema.set('toJSON', {
 });
 
 // Instance methods
-transactionSchema.methods.isCompleted = function() {
+transactionSchema.methods.isCompleted = function () {
   return this.status === 'completed';
 };
 
-transactionSchema.methods.isPending = function() {
+transactionSchema.methods.isPending = function () {
   return this.status === 'pending';
 };
 
-transactionSchema.methods.markCompleted = function() {
+transactionSchema.methods.markCompleted = function () {
   this.status = 'completed';
   this.completedAt = new Date();
 };
 
-transactionSchema.methods.markFailed = function(errorMessage) {
+transactionSchema.methods.markFailed = function (errorMessage) {
   this.status = 'failed';
   this.errorMessage = errorMessage;
   this.failedAt = new Date();
 };
 
 // Static methods
-transactionSchema.statics.findByWallet = function(walletId, options = {}) {
+transactionSchema.statics.findByWallet = function (walletId, options = {}) {
   const { page = 1, limit = 20, type, status } = options;
   const skip = (page - 1) * limit;
 
@@ -132,11 +160,11 @@ transactionSchema.statics.findByWallet = function(walletId, options = {}) {
     .limit(limit);
 };
 
-transactionSchema.statics.findByTransfer = function(transferId) {
+transactionSchema.statics.findByTransfer = function (transferId) {
   return this.find({ transferId });
 };
 
-transactionSchema.statics.getWalletStats = async function(walletId, dateFrom, dateTo) {
+transactionSchema.statics.getWalletStats = async function (walletId, dateFrom, dateTo) {
   const matchQuery = { walletId, status: 'completed' };
 
   if (dateFrom || dateTo) {
@@ -167,13 +195,13 @@ transactionSchema.statics.getWalletStats = async function(walletId, dateFrom, da
   }, {});
 };
 
-transactionSchema.statics.getRecentActivity = function(limit = 10) {
+transactionSchema.statics.getRecentActivity = function (limit = 10) {
   return this.find({ status: 'completed' })
     .sort({ completedAt: -1 })
     .limit(limit);
 };
 
-transactionSchema.statics.getVolumeByPeriod = async function(period = 'day') {
+transactionSchema.statics.getVolumeByPeriod = async function (period = 'day') {
   const groupBy = period === 'day' ?
     { $dateToString: { format: '%Y-%m-%d', date: '$createdAt' } } :
     { $dateToString: { format: '%Y-%m', date: '$createdAt' } };

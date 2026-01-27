@@ -1,12 +1,12 @@
-![open-wallet](assets/open-wallet.png)
+![Open-Commerce-Protocol](assets/open-wallet.png)
 
-An Implementation Proposal for the Open Wallet System
+# Open-Commerce-Protocol: The Standard for Agentic Commerce
 
-1.0 The Strategic Imperative: Migrating from Traditional Payments to a Tokenized Wallet
+## 1.0 The Strategic Imperative: Powering the Agent Economy
 
-The escalating costs of traditional payment processing, often a standard 2.9% + $0.30 per transaction, represent a significant and growing inhibitor to profitability and business growth. These fees erode margins on every sale, making certain business models, such as micro-transactions, entirely unviable. This section establishes the core business case for adopting a tokenized wallet infrastructure, a strategic shift designed to reclaim lost revenue, enhance customer relationships, and create new income streams.
+The Open-Commerce-Protocol (OCP) is an open-source standard designed to enable seamless, autonomous commerce between AI agents, while providing a robust payment infrastructure for traditional businesses. By unifying Agent-to-Agent (A2A) payments, Universal Commerce Protocol (UCP) transactions, and a flexible wallet architecture, OCP empowers developers to build the next generation of financial applications.
 
-The Open Wallet system is an open-source, tokenized infrastructure designed to fundamentally transform payment handling. By enabling businesses to create pre-funded user wallets, it bypasses the high costs of per-transaction processing, maximizes revenue, and ensures robust PCI DSS compliance. This model shifts the fee structure from a recurring operational expense on every customer action to a one-time fee applied only during wallet deposits, unlocking substantial financial and strategic advantages.
+OCP shifts the paradigm from simple payment processing to a comprehensive commerce enablement layer. It allows businesses to define custom agents with specific spending limits and authorized counterparties, facilitating trustless automation in procurement, negotiation, and settlement.
 
 The fundamental difference between the "Traditional Model" and the "Wallet Model" is stark. The following comparison, based on a scenario of 1,000 transactions at $10 each, quantifies the dramatic cost savings and margin improvement.
 
@@ -123,73 +123,74 @@ These strategies collectively demonstrate that the Open Wallet system is more th
 
 3.0 System Features and Core Capabilities
 
-A robust and versatile feature set is essential for serving the diverse needs of all stakeholders, from end-users making payments to administrators managing operations and developers building integrations. The Open Wallet system is architected with a comprehensive suite of functionalities designed to provide security, flexibility, and a seamless user experience. This section categorizes and details the core capabilities that underpin the platform.
+A robust and versatile feature set is essential for serving the diverse needs of all stakeholders, from end-users making payments to AI agents executing autonomous transactions. The Open-Commerce-Protocol (OCP) system is architected with a comprehensive suite of functionalities designed to provide security, flexibility, and a seamless developer experience.
+
+Agentic Commerce & Web3 Capabilities
+
+* **Agent-to-Agent (A2A) Transfers**: Instant, policy-compliant settlement between AI agents.
+* **Universal Commerce Protocol (UCP)**: A standardized JSON schema for communicating commerce intents across agents and platforms.
+* **Web3 Vaulting**: Secure generation and storage of blockchain private keys using PCI-compliant tokenization (Basis Theory).
+* **Simulated Enclave Signing**: Sign arbitrary data and transactions securely without ever exposing private keys.
 
 Core Wallet Functionality
 
-These are the foundational features that ensure secure and reliable wallet operations.
-
-* Secure Tokenization: Employs PCI DSS compliant payment tokenization, ensuring that no raw card data is ever stored on the system.
-* Multi-Currency Support: Capable of handling transactions in multiple currencies with built-in support for automatic conversion.
-* Transaction Management: Provides a complete transaction lifecycle, tracking payments through pending, completed, and failed states for full accountability.
-* Balance Management: Guarantees real-time, accurate balance tracking using atomic operations to prevent inconsistencies and race conditions.
-* Audit Trail: Maintains a comprehensive and immutable history of all transactions and wallet activities for logging, support, and compliance purposes.
+* **Secure Tokenization**: Employs PCI DSS compliant payment tokenization, ensuring that no raw card data is ever stored on the system.
+* **Multi-Currency Support**: Capable of handling transactions in multiple currencies with built-in support for automatic conversion.
+* **Transaction Management**: Provides a complete transaction lifecycle, tracking payments through pending, completed, and failed states for full accountability.
+* **Balance Management**: Guarantees real-time, accurate balance tracking using atomic operations to prevent inconsistencies and race conditions.
+* **Audit Trail**: Maintains a comprehensive and immutable history of all transactions (ledger and on-chain) and wallet activities.
 
 Mobile Payment Integrations
 
 The system is designed for a mobile-first world, with native integrations for the most popular payment platforms.
 
-* Apple Pay Integration: Offers native support for seamless and secure payments within iOS applications.
-* Google Pay Integration: Provides native support for one-click payments within Android applications.
-* Token Vault: Includes a secure, encrypted vault for storing payment tokens, ensuring sensitive information is protected at rest.
-* Biometric Authentication: Supports modern security standards, including Touch ID, Face ID, and fingerprint authentication, for enhanced user security.
+* **Apple Pay Integration**: Offers native support for seamless and secure payments within iOS applications.
+* **Google Pay Integration**: Provides native support for one-click payments within Android applications.
+* **Biometric Authentication**: Supports modern security standards, including Touch ID, Face ID, and fingerprint authentication.
 
 Administrative and Management Tools
 
 A powerful suite of back-office tools enables efficient business operations and oversight.
 
-* Dashboard Analytics: Delivers real-time statistics on wallet activity, transaction metrics, total balances, and user engagement.
-* Refund Processing: Features a complete, streamlined workflow for handling refunds, including an approval system to maintain financial controls.
-* Customer Management: Provides tools for customer support teams to manage wallet status, view transaction histories, and resolve issues.
-* Transaction Monitoring: Offers advanced filtering, search, and data export capabilities for in-depth analysis and reporting.
-* Role-Based Access Control: Allows for the creation of granular permissions for administrative users, ensuring that team members only have access to the functions relevant to their roles.
+* **Dashboard Analytics**: Delivers real-time statistics on wallet activity, transaction metrics, total balances, and user engagement.
+* **Refund Processing**: Features a complete, streamlined workflow for handling refunds.
+* **Customer Management**: Tools for managing wallet status and viewing transaction histories.
+* **Role-Based Access Control**: Granular permissions for administrative users.
 
 Developer Experience Enhancements
 
 The platform is built to be developer-friendly, accelerating integration and reducing time-to-market.
 
-* RESTful API: A well-documented, intuitive REST API provides comprehensive access to all system functionalities.
-* Webhook Support: Delivers real-time notifications for critical transaction events, enabling reactive and event-driven architectures.
-* SDK Examples: Includes practical examples in JavaScript, Python, and cURL to help developers get started quickly.
-* Test Mode: Offers a complete sandbox environment with mock data for thorough testing and validation before going live.
-* TypeScript Support: Provides full TypeScript definitions for the core libraries and UI kit, ensuring type safety and improving developer productivity.
-
-These features provide the foundation for a secure, scalable, and user-friendly payment ecosystem. The next section will detail the underlying technical architecture that supports these capabilities.
+* **RESTful API**: A well-documented, intuitive REST API.
+* **SDK Examples**: Includes practical examples in JavaScript, Python, and cURL.
+* **Test Mode**: Offers a complete sandbox environment with mock data for A2A and Web3 testing.
+* **TypeScript Support**: Full TypeScript definitions for key models (Agent, Wallet, Transaction).
 
 4.0 Technical Architecture and Implementation Pathway
 
-A sound, scalable architecture is critical for ensuring the reliability, security, and future growth of any payment platform. The Open Wallet system is built on a modern, modular design that promotes maintainability and simplifies deployment. This section provides a clear overview of the system's architecture, its key components, and the straightforward steps required for implementation and configuration.
+A sound, scalable architecture is critical for ensuring the reliability, security, and future growth. OCP is built on a modern, modular design.
 
 System Architecture
 
-Open Wallet follows a modular, service-oriented architecture designed for separation of concerns and independent scalability. Communication between layers is secured via HTTPS/TLS, with an API Gateway handling primary concerns like authentication and rate limiting before requests are routed to the appropriate backend service.
+OCP follows a modular, service-oriented architecture designed for separation of concerns and independent scalability. Communication between layers is secured via HTTPS/TLS.
 
 Key Components
 
-The architecture is composed of five distinct services, each with a dedicated responsibility:
+The architecture is composed of distinct services, each with a dedicated responsibility:
 
-1. Wallet Service: Manages the core business logic for all wallet operations, including creation, balance updates, and status changes.
-2. Payment Service: Handles the integration with mobile payment processors like Apple Pay and Google Pay, as well as the initial tokenization of payment methods.
-3. Token Service: Manages the secure storage, retrieval, and lifecycle of payment tokens within the encrypted vault.
-4. Transaction Service: Oversees the complete lifecycle of a transaction, from initiation to completion or failure, ensuring data integrity.
-5. Admin Service: Powers the administrative dashboard, providing endpoints for reporting, customer management, and other operational tasks.
+1. **Wallet Service**: Manages the core business logic for all wallet operations.
+2. **A2A Service**: Orchestrates compliant transfers between Agents.
+3. **UCP Service**: Parses and executes standardized commerce intents.
+4. **Web3 Service**: Manages blockchain wallet creation and transaction signing via the Vault.
+5. **Tokenization Service**: Manages the secure storage, retrieval, and lifecycle of payment tokens and private keys within the encrypted vault.
+6. **Transaction Service**: Oversees the complete lifecycle of a transaction.
+7. **Admin Service**: Powers the administrative dashboard.
 
 Implementation and Configuration
 
-Deploying the Open Wallet system is a streamlined process. The following details the prerequisites and steps for a basic setup.
+Deploying the Open-Commerce-Protocol system is a streamlined process.
 
 Prerequisites:
-
 * Node.js 18+ or Python 3.9+
 * MongoDB 6.0+ or PostgreSQL 14+
 * An account with a compatible tokenization provider (e.g., Basis Theory)
@@ -198,8 +199,8 @@ Prerequisites:
 Basic Setup:
 
 # Clone the repository
-git clone https://github.com/ThomasC3/open-wallet.git
-cd open-wallet
+git clone https://github.com/ThomasC3/open-commerce-protocol.git
+cd open-commerce-protocol
 
 # Install dependencies
 npm install

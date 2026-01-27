@@ -268,6 +268,74 @@ class TokenizationService {
   }
 
   /**
+   * Create a token for a generic secret (e.g. Private Key)
+   * @param {string} secret - The secret data
+   * @param {Object} metadata - Optional metadata
+   * @returns {Promise<Object>} Token object
+   */
+  async createSecretToken(secret, metadata = {}) {
+    // Mock for testing/simulation
+    if (this.apiKey === 'test-key' || process.env.NODE_ENV === 'test') {
+      return {
+        id: `token_${crypto.randomBytes(8).toString('hex')}`,
+        type: 'secret',
+        created_at: new Date().toISOString(),
+        metadata: { ...metadata, type: 'secret_key' }
+      };
+    }
+
+    try {
+      const response = await this.client.post('/tokens', {
+        type: 'token',
+        data: secret,
+        metadata: {
+          ...metadata,
+          type: 'secret_key',
+          created_at: new Date().toISOString()
+        }
+      });
+
+      return {
+        id: response.data.id,
+        type: 'secret',
+        created_at: response.data.created_at,
+        metadata: response.data.metadata
+      };
+    } catch (error) {
+      throw this._handleError(error);
+    }
+  }
+
+  /**
+   * Sign data using a stored token (Simulates secure reactor/enclave)
+   * @param {string} tokenId - Token ID of the private key
+   * @param {string} dataToSign - Hex or string data to sign
+   * @returns {Promise<string>} Signature
+   */
+  async signWithToken(tokenId, dataToSign) {
+    try {
+      // In a real implementation, this would call a Basis Theory Reactor
+      // providing the tokenId. The Reactor would securely retrieve the
+      // secret and sign the data without exposing the key.
+      const response = await this.client.post('/reactors/sign', {
+        args: {
+          tokenId,
+          data: dataToSign
+        }
+      });
+
+      return response.data.signature;
+    } catch (error) {
+      // Fallback for simulation/testing if reactor endpoint doesn't exist
+      // We assume for simulation that we can just "mock" a signature
+      if (process.env.NODE_ENV !== 'production' || this.apiKey === 'test-key') {
+        return `0x_mock_signature_of_${dataToSign}_with_${tokenId}`;
+      }
+      throw this._handleError(error);
+    }
+  }
+
+  /**
    * Handle and format errors
    * @private
    */

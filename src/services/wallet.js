@@ -140,6 +140,9 @@ class WalletService {
         throw new Error(`Balance would exceed maximum of ${this.config.maxBalance}`);
       }
 
+      // Extract top-level fields from metadata if they exist
+      const { agentId, counterpartyAgentId, ucpPayload, ...restMetadata } = metadata;
+
       // Create transaction
       const transaction = await this.db.createTransaction({
         walletId,
@@ -148,8 +151,11 @@ class WalletService {
         description: description || 'Add funds',
         status: 'pending',
         paymentToken,
+        agentId,
+        counterpartyAgentId,
+        ucpPayload,
         metadata: {
-          ...metadata,
+          ...restMetadata,
           previous_balance: wallet.balance,
           new_balance: newBalance
         },
@@ -205,6 +211,9 @@ class WalletService {
 
       const newBalance = wallet.balance - amount;
 
+      // Extract top-level fields from metadata if they exist
+      const { agentId, counterpartyAgentId, ucpPayload, ...restMetadata } = metadata;
+
       // Create transaction
       const transaction = await this.db.createTransaction({
         walletId,
@@ -212,8 +221,11 @@ class WalletService {
         amount: -amount,
         description: description || 'Payment',
         status: 'pending',
+        agentId,
+        counterpartyAgentId,
+        ucpPayload,
         metadata: {
-          ...metadata,
+          ...restMetadata,
           previous_balance: wallet.balance,
           new_balance: newBalance
         },
@@ -254,7 +266,7 @@ class WalletService {
    * @param {string} params.description - Transfer description
    * @returns {Promise<Object>} Transfer result
    */
-  async transfer({ fromWalletId, toWalletId, amount, description }) {
+  async transfer({ fromWalletId, toWalletId, amount, description, metadata = {} }) {
     try {
       if (amount <= 0) {
         throw new Error('Amount must be greater than 0');
@@ -272,7 +284,7 @@ class WalletService {
         walletId: fromWalletId,
         amount,
         description: description || `Transfer to wallet ${toWalletId}`,
-        metadata: { transfer_id: transferId, type: 'transfer_out' }
+        metadata: { ...metadata, transfer_id: transferId, type: 'transfer_out' }
       });
 
       // Add to destination wallet
@@ -281,7 +293,7 @@ class WalletService {
         amount,
         paymentToken: null,
         description: description || `Transfer from wallet ${fromWalletId}`,
-        metadata: { transfer_id: transferId, type: 'transfer_in' }
+        metadata: { ...metadata, transfer_id: transferId, type: 'transfer_in' }
       });
 
       return {
