@@ -1,8 +1,8 @@
-# Open Wallet Architecture
+# Open Commerce Protocol Architecture
 
 ## Overview
 
-Open Wallet is designed as a modular, service-oriented system that provides secure wallet management with tokenized payment processing. The architecture emphasizes security, scalability, and developer experience.
+Open Commerce Protocol (OCP) is designed as a modular, service-oriented system that enables agentic commerce, secure wallet management, and Web3 capabilities. The architecture emphasizes security, scalability, and developer experience for both human and autonomous agent users.
 
 ## System Architecture
 
@@ -26,12 +26,12 @@ Open Wallet is designed as a modular, service-oriented system that provides secu
 ┌────────────────────▼─────────────────────────────────────┐
 │                  Service Layer                            │
 │  ┌───────────────┐ ┌────────────────┐ ┌──────────────┐ │
-│  │ Wallet Service│ │ Payment Service│ │ Token Service│ │
+│  │ Wallet Service│ │ A2A / UCP      │ │ Web3 Service │ │
 │  └───────────────┘ └────────────────┘ └──────────────┘ │
-│  ┌───────────────┐ ┌────────────────┐                  │
-│  │ Transaction   │ │ Admin Service  │                  │
-│  │ Service       │ │                │                  │
-│  └───────────────┘ └────────────────┘                  │
+│  ┌───────────────┐ ┌────────────────┐ ┌──────────────┐ │
+│  │ Transaction   │ │ Admin Service  │ │ Token Service│ │
+│  │ Service       │ │                │ │              │ │
+│  └───────────────┘ └────────────────┘ └──────────────┘ │
 └────────────────────┬─────────────────────────────────────┘
                      │
         ┌────────────┴──────────────┐
@@ -80,6 +80,24 @@ Manages wallet lifecycle and balance operations.
 - Repository pattern for data access
 - Transaction script for business logic
 - Observer pattern for balance notifications
+
+#### Agent & A2A Service
+Manages AI Agent identities and autonomous transfers.
+
+**Key Operations:**
+- Agent registration and policy creation
+- UCP (Universal Commerce Protocol) payload parsing
+- Peer-to-peer (Agent-to-Agent) value transfer
+- Policy enforcement (limits, authorized counterparties)
+
+#### Web3 Service
+Handles blockchain interactions and vault-based signing.
+
+**Key Operations:**
+- Wallet generation (Vaulted Private Keys)
+- Transaction construction
+- Secure Enclave Signing (via Tokenization Service)
+- Chain-agnostic broadcasting
 
 #### Payment Service (Mobile Payment)
 Handles Apple Pay and Google Pay integrations.
@@ -225,6 +243,27 @@ Provides administrative capabilities.
 
 7. API returns success
    └─> Both transactions completed
+
+### Web3 Vaulting & Signing Flow
+
+```
+1. Client requests blockchain transaction
+   └─> POST /api/v1/web3/send
+
+2. Web3 Service constructs transaction
+   └─> Fetches nonce, gas price
+
+3. Service requests signature from Token Vault
+   └─> Simulates Secure Enclave
+
+4. Tokenization Service signs data
+   └─> Using vaulted private key (never exposed)
+
+5. Web3 Service broadcasts signed tx
+   └─> Submits to RPC node
+
+6. Transaction hash returned to client
+```
 ```
 
 ## Security Architecture
@@ -429,11 +468,6 @@ services:
 ## Future Enhancements
 
 ### Planned Features
-
-1. **Cryptocurrency Support**
-   - Bitcoin/Ethereum integration
-   - Token swaps
-   - DeFi integration
 
 2. **Advanced Analytics**
    - Machine learning fraud detection
