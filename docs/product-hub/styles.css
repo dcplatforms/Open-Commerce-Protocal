@@ -1,0 +1,257 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap');
+
+:root {
+    --glass-color: rgba(255, 255, 255, 0.15); /* Slightly more transparent glass */
+    --glass-border: rgba(255, 255, 255, 0.3);
+    --glass-shadow: rgba(0, 0, 0, 0.1);
+    --text-dark: #1a1a1a;
+    --text-light: #333;
+    --primary-color: #007bff;
+    --accent-color: #535bf2;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+    font-weight: 400;
+    color: var(--text-light);
+    margin: 0;
+    display: flex;
+    min-width: 320px;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%); /* Softer, lighter background */
+    background-attachment: fixed;
+}
+
+.layout-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    width: 100%;
+}
+
+/* Glassmorphism base style */
+.glassmorphism {
+    background-color: var(--glass-color);
+    backdrop-filter: blur(15px) saturate(180%); /* Stronger blur, more saturation */
+    -webkit-backdrop-filter: blur(15px) saturate(180%);
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 4px 30px var(--glass-shadow);
+    border-radius: 12px; /* More pronounced rounded corners */
+}
+
+.header {
+    padding: 15px 30px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    margin: 15px; /* Margin from edges */
+}
+
+.header-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.site-title {
+    font-size: 2em; /* Slightly larger */
+    font-weight: 700; /* Bold */
+    color: var(--text-dark);
+    text-decoration: none;
+    letter-spacing: -0.8px;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.05); /* Subtle text shadow */
+}
+
+.main-nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 30px; /* Increased gap */
+}
+
+.main-nav li {
+    position: relative;
+}
+
+.main-nav a {
+    color: var(--text-dark); /* Darker for contrast */
+    text-decoration: none;
+    font-weight: 400; /* Thin look */
+    font-size: 1.1em; /* Slightly larger */
+    padding: 8px 0;
+    transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.main-nav a:hover {
+    color: var(--primary-color); /* Highlight color */
+    transform: translateY(-2px); /* Subtle hover effect */
+}
+
+/* Dropdown styles */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    min-width: 180px; /* Wider */
+    z-index: 1;
+    padding: 10px 0;
+    margin-top: 10px;
+    left: 50%; /* Center dropdown under parent */
+    transform: translateX(-50%);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.dropdown-content a {
+    padding: 10px 20px; /* More padding */
+    text-align: center;
+    font-size: 1em;
+    font-weight: 300;
+    color: var(--text-dark); /* Ensure dropdown links are dark */
+    display: block; /* Make links block level */
+}
+
+.dropdown-content a:hover {
+    background-color: rgba(0,0,0,0.05); /* Subtle background hover */
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+    opacity: 1;
+    visibility: visible;
+}
+
+.main-content {
+    flex-grow: 1;
+    max-width: 1000px; /* Slightly narrower content area */
+    margin: 30px auto; /* More margin */
+    padding: 40px; /* More padding */
+    /* Applied glassmorphism via class */
+}
+
+.footer {
+    padding: 20px 30px;
+    text-align: center;
+    color: #555; /* Softer dark for footer */
+    font-size: 0.9em;
+    margin: 15px; /* Margin from edges */
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Markdown specific styling */
+#content-area {
+    padding: 20px;
+    line-height: 1.8;
+}
+
+#content-area h1,
+#content-area h2,
+#content-area h3,
+#content-area h4,
+#content-area h5,
+#content-area h6 {
+    color: var(--text-dark); /* Boldly contrasted dark font */
+    font-weight: 700; /* Bolder for headings */
+    margin-top: 1.8em; /* More space */
+    margin-bottom: 0.8em;
+}
+
+#content-area h1 { font-size: 2.5em; } /* Larger headings */
+#content-area h2 { font-size: 2em; border-bottom: 1px solid rgba(0,0,0,0.1); padding-bottom: 0.4em; } /* Subtle border */
+#content-area h3 { font-size: 1.7em; }
+#content-area h4 { font-size: 1.4em; }
+
+#content-area p {
+    margin-bottom: 1.2em; /* More line spacing */
+    font-weight: 300; /* Thin look */
+    color: var(--text-light);
+}
+
+#content-area a {
+    color: var(--primary-color); /* Link color */
+    text-decoration: none;
+    font-weight: 400;
+    transition: color 0.3s ease;
+}
+
+#content-area a:hover {
+    color: var(--accent-color);
+    text-decoration: underline;
+}
+
+#content-area ul,
+#content-area ol {
+    margin-bottom: 1.2em;
+    padding-left: 25px; /* More padding */
+}
+
+#content-area code {
+    background-color: rgba(0, 0, 0, 0.05); /* Subtle background for inline code */
+    padding: 3px 6px;
+    border-radius: 5px;
+    font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+    font-size: 0.9em;
+}
+
+#content-area pre {
+    background-color: rgba(0, 0, 0, 0.7); /* Darker background for code blocks */
+    color: #f8f8f2;
+    padding: 20px;
+    border-radius: 8px;
+    overflow-x: auto;
+    margin-bottom: 1.5em;
+    box-shadow: inset 0 2px 5px rgba(0,0,0,0.2); /* Inner shadow for depth */
+}
+
+#content-area pre code {
+    background-color: transparent;
+    color: inherit;
+    padding: 0;
+    border-radius: 0;
+    font-size: 1em;
+}
+
+#content-area blockquote {
+    border-left: 5px solid var(--primary-color); /* Accent color border */
+    padding-left: 15px;
+    color: #666;
+    margin-bottom: 1.5em;
+    background-color: rgba(0, 0, 0, 0.02); /* Very subtle background */
+    border-radius: 5px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+#content-area table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1.5em;
+    border-radius: 8px;
+    overflow: hidden; /* Ensures rounded corners apply to table content */
+}
+
+#content-area th,
+#content-area td {
+    border: 1px solid rgba(0, 0, 0, 0.1); /* Subtle borders */
+    padding: 12px; /* More padding */
+    text-align: left;
+}
+
+#content-area th {
+    background-color: rgba(0, 0, 0, 0.05); /* Subtle header background */
+    font-weight: 600;
+    color: var(--text-dark);
+}

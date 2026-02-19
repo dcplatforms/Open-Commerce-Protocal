@@ -1,14 +1,58 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>product-hub-react</title>
-    <script type="module" crossorigin src="/assets/index-B6EGjfpt.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-CEh4in0-.css">
-  </head>
-  <body>
-    <div id="root"></div>
-  </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Open Commerce Protocol Product Hub</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="layout-container">
+        <header class="header glassmorphism">
+            <div class="header-content">
+                <a href="#" class="site-title" data-path="home">Open Commerce Protocol</a>
+                <nav class="main-nav">
+                    <ul>
+                        <li><a href="#" data-path="home">Home</a></li>
+                        <li><a href="#" data-path="getting-started">Getting Started</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropbtn">API Reference</a>
+                            <div class="dropdown-content glassmorphism">
+                                <a href="#" data-path="api/wallet">Wallet API</a>
+                                <a href="#" data-path="api/agent">Agent API</a>
+                                <a href="#" data-path="api/vault">Vault API</a>
+                                <a href="#" data-path="api/ucp">UCP API</a>
+                            </div>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropbtn">Integration Guides</a>
+                            <div class="dropdown-content glassmorphism">
+                                <a href="#" data-path="integration/embedding-wallets">Embed Wallets</a>
+                                <a href="#" data-path="integration/integrating-agents">Integrate Agents</a>
+                            </div>
+                        </li>
+                        <li><a href="#" data-path="security">Security</a></li>
+                        <li><a href="#" data-path="compliance">Compliance</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <main class="main-content glassmorphism">
+            <div id="content-area">
+                <!-- Markdown content will be loaded here -->
+            </div>
+        </main>
+
+        <footer class="footer glassmorphism">
+            <div class="footer-content">
+                <p>&copy; <span id="current-year"></span> Open Commerce Initiative. All rights reserved.</p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="lib/marked.min.js"></script>
+    <script src="script.js"></script>
+</body>
 </html>
