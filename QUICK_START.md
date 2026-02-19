@@ -22,11 +22,11 @@ If you prefer manual control:
 cd ~/Desktop/open-wallet
 
 # 1. Create GitHub repository
-gh repo create ThomasC3/open-wallet --public \
-  --description "A secure, tokenized mobile wallet system optimized for vault transactions"
+gh repo create dcplatforms/Open-Commerce-Protocol --public \
+  --description "The standard for Agentic Commerce. Powered by the Open Commerce Protocol (OCP) SDK."
 
 # 2. Add remote
-git remote add origin https://github.com/ThomasC3/open-wallet.git
+git remote add origin https://github.com/dcplatforms/Open-Commerce-Protocol.git
 
 # 3. Push code
 git push -u origin main
@@ -37,13 +37,13 @@ git push origin v1.0.0
 
 # 5. Create GitHub release
 gh release create v1.0.0 \
-  --title "Open Wallet v1.0.0" \
-  --notes "Initial release with complete wallet infrastructure"
+  --title "Open Commerce Initiative v1.0.0" \
+  --notes "Initial release with complete Open Commerce Protocol (OCP) infrastructure"
 ```
 
 ## After Deployment
 
-1. Visit: https://github.com/ThomasC3/open-wallet
+1. Visit: https://github.com/dcplatforms/Open-Commerce-Protocol
 2. Add topics: wallet, payment, tokenization, apple-pay, google-pay, etc.
 3. Enable Discussions (Settings > Features)
 4. Configure branch protection (Settings > Branches)
@@ -75,3 +75,7 @@ npm run dev
 ## Need Help?
 
 See PROJECT_COMPLETE.md for complete project overview.
+
+---
+
+Open Commerce Protocol (OCP) is the underlying SDK of Open Commerce Initiative (OCI). OCP is authored by [Tom Callahan](https://www.linkedin.com/in/tom-cndc/). Join the [OCI community here on Linkedin](https://www.linkedin.com/company/open-commerce-solutions)

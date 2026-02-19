@@ -1,6 +1,6 @@
-# Contributing to Open Wallet
+# Contributing to Open Commerce Initiative (OCI)
 
-Thank you for your interest in contributing to Open Wallet! This document provides guidelines and instructions for contributing.
+Thank you for your interest in contributing to the **Open Commerce Initiative (OCI)**! This document provides guidelines and instructions for contributing to OCI and the underlying **Open Commerce Protocol (OCP)** SDK.
 
 ## Code of Conduct
 
@@ -50,8 +50,8 @@ Feature suggestions are welcome! Please provide:
 
 ```bash
 # Clone your fork
-git clone https://github.com/YOUR_USERNAME/open-wallet.git
-cd open-wallet
+git clone https://github.com/YOUR_USERNAME/Open-Commerce-Protocol.git
+cd Open-Commerce-Protocol
 
 # Install dependencies
 npm install
@@ -270,4 +270,8 @@ Don't hesitate to ask questions in Issues or Discussions. We're here to help!
 
 ---
 
-Thank you for contributing to Open Wallet! 🎉
+Thank you for contributing to Open Commerce Initiative! 🎉
+
+---
+
+Open Commerce Protocol (OCP) is the underlying SDK of Open Commerce Initiative (OCI). OCP is authored by [Tom Callahan](https://www.linkedin.com/in/tom-cndc/). Join the [OCI community here on Linkedin](https://www.linkedin.com/company/open-commerce-solutions)
