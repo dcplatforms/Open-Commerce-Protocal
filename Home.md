@@ -27,8 +27,8 @@ The Open Commerce Initiative (OCI) platform adheres to industry standards for se
 
 ## Quick Links
 - [Official Documentation](https://github.com/dcplatforms/Open-Commerce-Protocol/blob/main/docs/ARCHITECTURE.md)
-- [Getting Started Guide](https://github.com/dcplatforms/Open-Commerce-Protocol/blob/main/README.md#quick-start)
-- [Business Strategy](https://github.com/dcplatforms/Open-Commerce-Protocol/blob/main/docs/BUSINESS_STRATEGY.md)
+- [Getting Started Guide](https://github.com/dcplatforms/Open-Commerce-Protocol/blob/main/README.md#getting-started)
+- [API Reference](https://github.com/dcplatforms/Open-Commerce-Protocol/blob/main/README.md#api-documentation)
 - [Support](https://github.com/dcplatforms/Open-Commerce-Protocol/issues)
 
 ---
