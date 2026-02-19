@@ -1,6 +1,6 @@
-# OpenWallet
+# Open Commerce Initiative (OCI) UI Kit
 
-OpenWallet is a suite of tools for creating custom, branded wallet experiences. This repository contains the **Wallet Builder**, a user-friendly, drag-and-drop interface for designing and configuring your wallet's UI without writing code.
+The Open Commerce Initiative (OCI) UI Kit, powered by the **Open Commerce Protocol (OCP)**, is a suite of tools for creating custom, branded wallet experiences. This repository contains the **Wallet Builder**, a user-friendly, drag-and-drop interface for designing and configuring your wallet's UI without writing code.
 
 ## Key Features
 
@@ -21,3 +21,7 @@ This project is built with React and is designed to run directly in the browser 
 
 -   To view the component library, you can use Storybook: `npm run storybook`
 -   To make changes, you can edit the `wallet-builder.html` file directly.
+
+---
+
+Open Commerce Protocol (OCP) is the underlying SDK of Open Commerce Initiative (OCI). OCP is authored by [Tom Callahan](https://www.linkedin.com/in/tom-cndc/). Join the [OCI community here on Linkedin](https://www.linkedin.com/company/open-commerce-solutions)

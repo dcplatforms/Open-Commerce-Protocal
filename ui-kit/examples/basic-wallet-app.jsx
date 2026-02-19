@@ -165,7 +165,7 @@ function BasicWalletApp() {
         <Header>
           <Logo>My Wallet</Logo>
           <ThemeToggle onClick={toggleTheme}>
-            {theme === 'light' ? '🌙' : '☀️'}
+            {theme === 'light' ? 'Dark' : 'Light'}
           </ThemeToggle>
         </Header>
 

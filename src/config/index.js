@@ -78,14 +78,14 @@ const config = {
   // Payment providers
   applePay: {
     merchantId: process.env.APPLE_PAY_MERCHANT_ID,
-    merchantName: process.env.APPLE_PAY_MERCHANT_NAME || 'Open Commerce Protocol',
+    merchantName: process.env.APPLE_PAY_MERCHANT_NAME || 'Open Commerce Initiative (OCI)',
     countryCode: 'US',
     supportedNetworks: ['visa', 'mastercard', 'amex', 'discover']
   },
 
   googlePay: {
     merchantId: process.env.GOOGLE_PAY_MERCHANT_ID,
-    merchantName: process.env.GOOGLE_PAY_MERCHANT_NAME || 'Open Commerce Protocol',
+    merchantName: process.env.GOOGLE_PAY_MERCHANT_NAME || 'Open Commerce Initiative (OCI)',
     environment: process.env.GOOGLE_PAY_ENVIRONMENT || 'TEST'
   },
 

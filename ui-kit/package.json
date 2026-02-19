@@ -38,13 +38,13 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ThomasC3/open-wallet.git",
+    "url": "https://github.com/dcplatforms/Open-Commerce-Protocol.git",
     "directory": "ui-kit"
   },
   "bugs": {
-    "url": "https://github.com/ThomasC3/open-wallet/issues"
+    "url": "https://github.com/dcplatforms/Open-Commerce-Protocol/issues"
   },
-  "homepage": "https://github.com/ThomasC3/open-wallet/tree/main/ui-kit#readme",
+  "homepage": "https://github.com/dcplatforms/Open-Commerce-Protocol/tree/main/ui-kit#readme",
   "peerDependencies": {
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
