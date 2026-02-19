@@ -15,13 +15,13 @@ class MobilePaymentService {
     this.config = {
       applePay: {
         merchantId: config.applePay?.merchantId || process.env.APPLE_PAY_MERCHANT_ID,
-        merchantName: config.applePay?.merchantName || 'Open Wallet',
+        merchantName: config.applePay?.merchantName || 'Open Commerce Initiative (OCI)',
         countryCode: config.applePay?.countryCode || 'US',
         supportedNetworks: config.applePay?.supportedNetworks || ['visa', 'mastercard', 'amex', 'discover']
       },
       googlePay: {
         merchantId: config.googlePay?.merchantId || process.env.GOOGLE_PAY_MERCHANT_ID,
-        merchantName: config.googlePay?.merchantName || 'Open Wallet',
+        merchantName: config.googlePay?.merchantName || 'Open Commerce Initiative (OCI)',
         environment: config.googlePay?.environment || 'PRODUCTION'
       }
     };

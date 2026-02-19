@@ -1,7 +1,7 @@
 /**
- * Open Wallet - Main Entry Point
+ * Open Commerce Initiative (OCI) - Main Entry Point
  *
- * A secure, tokenized mobile wallet system optimized for vault transactions.
+ * A secure, tokenized platform powered by the Open Commerce Protocol (OCP) SDK.
  */
 
 const express = require('express');
@@ -77,10 +77,10 @@ app.use(
 // Root endpoint
 app.get('/', (req, res) => {
   res.json({
-    name: 'Open Wallet API',
+    name: 'Open Commerce Initiative (OCI) API',
     version: require('../package.json').version,
-    description: 'A secure, tokenized mobile wallet system',
-    documentation: 'https://github.com/ThomasC3/open-wallet#readme'
+    description: 'A secure, tokenized platform powered by the Open Commerce Protocol (OCP) SDK',
+    documentation: 'https://github.com/dcplatforms/Open-Commerce-Protocol#readme'
   });
 });
 
@@ -118,7 +118,7 @@ async function start() {
 
     // Start listening
     const server = app.listen(config.server.port, config.server.host, () => {
-      logger.info(`Open Wallet API running on ${config.server.host}:${config.server.port}`);
+      logger.info(`Open Commerce Initiative (OCI) API running on ${config.server.host}:${config.server.port}`);
       logger.info(`Environment: ${config.server.nodeEnv}`);
       logger.info(`API Base URL: ${config.server.baseUrl}`);
     });

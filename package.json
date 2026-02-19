@@ -1,7 +1,7 @@
 {
   "name": "@open-commerce-protocol/core",
   "version": "1.0.0",
-  "description": "The open source standard for agentic commerce, A2A payments, and universal commerce protocol (UCP) transactions",
+  "description": "The open source standard for agentic commerce, A2A payments, and universal commerce protocol (UCP) transactions. Powered by the Open Commerce Initiative (OCI).",
   "main": "src/index.js",
   "types": "types/index.d.ts",
   "engines": {
@@ -32,16 +32,16 @@
     "basis-theory",
     "fintech"
   ],
-  "author": "Open Wallet Contributors",
+  "author": "Open Commerce Initiative (OCI) Contributors",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ThomasC3/open-wallet.git"
+    "url": "https://github.com/dcplatforms/Open-Commerce-Protocol.git"
   },
   "bugs": {
-    "url": "https://github.com/ThomasC3/open-wallet/issues"
+    "url": "https://github.com/dcplatforms/Open-Commerce-Protocol/issues"
   },
-  "homepage": "https://github.com/ThomasC3/open-wallet#readme",
+  "homepage": "https://github.com/dcplatforms/Open-Commerce-Protocol#readme",
   "dependencies": {
     "axios": "^1.6.0",
     "bcryptjs": "^2.4.3",
