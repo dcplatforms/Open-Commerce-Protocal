@@ -15,15 +15,22 @@ const logger = require('./utils/logger');
 const WalletService = require('./services/wallet');
 const TokenizationService = require('./services/tokenization');
 const MobilePaymentService = require('./services/mobilePayment');
+const AgentService = require('./services/agent'); // New
+const UCPService = require('./services/ucp');     // New
+
 const walletRoutes = require('./routes/wallet');
 const tokenizationRoutes = require('./routes/tokenization');
 const mobilePaymentRoutes = require('./routes/mobilePayment');
+const agentRoutes = require('./routes/agent');         // New
+const ucpRoutes = require('./routes/ucp');             // New
 
 // Initialize services
 const db = require('./utils/database');
 const walletService = new WalletService(db);
 const tokenizationService = new TokenizationService();
 const mobilePaymentService = new MobilePaymentService(tokenizationService, walletService);
+const agentService = new AgentService(db); // New
+const ucpService = new UCPService();       // New
 
 // Initialize Express app
 const app = express();
@@ -65,6 +72,8 @@ const schema = require('./graphql/schema')(walletService);
 app.use('/api/v1/wallet', walletRoutes(walletService));
 app.use('/api/v1/tokens', tokenizationRoutes(tokenizationService));
 app.use('/api/v1/payments', mobilePaymentRoutes(mobilePaymentService));
+app.use('/api/v1/agents', agentRoutes(agentService));   // New
+app.use('/api/v1/ucp', ucpRoutes(ucpService));         // New
 
 app.use(
   '/graphql',

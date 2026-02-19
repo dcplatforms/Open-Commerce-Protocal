@@ -32,11 +32,11 @@
     "basis-theory",
     "fintech"
   ],
-  "author": "Open Commerce Initiative (OCI) Contributors",
+  "author": "Open Commerce Initiative (OCI)",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/dcplatforms/Open-Commerce-Protocol.git"
+    "url": "git+https://github.com/dcplatforms/Open-Commerce-Protocol.git"
   },
   "bugs": {
     "url": "https://github.com/dcplatforms/Open-Commerce-Protocol/issues"
@@ -81,5 +81,10 @@
     "setupFiles": [
       "./jest.setup.js"
     ]
+  },
+  "directories": {
+    "doc": "docs",
+    "example": "examples",
+    "test": "tests"
   }
 }
