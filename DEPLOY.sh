@@ -6,7 +6,7 @@ set -e
 GITHUB_USER="dcplatforms"
 REPO_NAME="Open-Commerce-Protocol"
 
-echo "Deploying Open Commerce Initiative to GitHub..."
+echo "Deploying Open Commerce Protocol to GitHub..."
 echo ""
 
 # Check if gh CLI is available
