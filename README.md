@@ -1,12 +1,12 @@
-![Open-Commerce-Protocol](assets/open-wallet.png)
+![Open Commerce Initiative](assets/open-wallet.png)
 
-# Open-Commerce-Protocol: The Standard for Agentic Commerce
+# Open Commerce Initiative (OCI): The Standard for Agentic Commerce
 
 ## 1.0 The Strategic Imperative: Powering the Agent Economy
 
-The Open-Commerce-Protocol (OCP) is an open-source standard designed to enable seamless, autonomous commerce between AI agents, while providing a robust payment infrastructure for traditional businesses. By unifying Agent-to-Agent (A2A) payments, Universal Commerce Protocol (UCP) transactions, and a flexible wallet architecture, OCP empowers developers to build the next generation of financial applications.
+The Open Commerce Initiative (OCI) is an open-source initiative designed to enable seamless, autonomous commerce between AI agents, while providing a robust payment infrastructure for traditional businesses. By unifying Agent-to-Agent (A2A) payments, Universal Commerce Protocol (UCP) transactions, and a flexible wallet architecture, OCI empowers developers to build the next generation of financial applications.
 
-OCP shifts the paradigm from simple payment processing to a comprehensive commerce enablement layer. It allows businesses to define custom agents with specific spending limits and authorized counterparties, facilitating trustless automation in procurement, negotiation, and settlement.
+OCI is powered by the **Open Commerce Protocol (OCP)**, which shifts the paradigm from simple payment processing to a comprehensive commerce enablement layer. It allows businesses to define custom agents with specific spending limits and authorized counterparties, facilitating trustless automation in procurement, negotiation, and settlement.
 
 The fundamental difference between the "Traditional Model" and the "Wallet Model" is stark. The following comparison, based on a scenario of 1,000 transactions at $10 each, quantifies the dramatic cost savings and margin improvement.
 
@@ -123,7 +123,7 @@ These strategies collectively demonstrate that the Open Wallet system is more th
 
 3.0 System Features and Core Capabilities
 
-A robust and versatile feature set is essential for serving the diverse needs of all stakeholders, from end-users making payments to AI agents executing autonomous transactions. The Open-Commerce-Protocol (OCP) system is architected with a comprehensive suite of functionalities designed to provide security, flexibility, and a seamless developer experience.
+A robust and versatile feature set is essential for serving the diverse needs of all stakeholders, from end-users making payments to AI agents executing autonomous transactions. The Open Commerce Initiative (OCI) platform, leveraging the Open Commerce Protocol (OCP) SDK, is architected with a comprehensive suite of functionalities designed to provide security, flexibility, and a seamless developer experience.
 
 Agentic Commerce & Web3 Capabilities
 
@@ -168,7 +168,7 @@ The platform is built to be developer-friendly, accelerating integration and red
 
 4.0 Technical Architecture and Implementation Pathway
 
-A sound, scalable architecture is critical for ensuring the reliability, security, and future growth. OCP is built on a modern, modular design.
+A sound, scalable architecture is critical for ensuring the reliability, security, and future growth. The Open Commerce Initiative (OCI) is built on the Open Commerce Protocol (OCP) SDK, which utilizes a modern, modular design.
 
 System Architecture
 
@@ -188,7 +188,7 @@ The architecture is composed of distinct services, each with a dedicated respons
 
 Implementation and Configuration
 
-Deploying the Open-Commerce-Protocol system is a streamlined process.
+Deploying the Open Commerce Initiative (OCI) system is a streamlined process.
 
 Prerequisites:
 * Node.js 18+ or Python 3.9+
@@ -199,8 +199,8 @@ Prerequisites:
 Basic Setup:
 
 # Clone the repository
-git clone https://github.com/ThomasC3/open-commerce-protocol.git
-cd open-commerce-protocol
+git clone https://github.com/dcplatforms/Open-Commerce-Protocol.git
+cd Open-Commerce-Protocol
 
 # Install dependencies
 npm install
@@ -453,3 +453,7 @@ Admin Endpoints
 * Response:
 
 As detailed throughout this proposal, the Open Wallet system provides a comprehensive solution for transforming a company's payment infrastructure, delivering value through direct revenue optimization, robust security, and a superior developer experience.
+
+---
+
+Open Commerce Protocol (OCP) is the underlying SDK of Open Commerce Initiative (OCI). OCP is authored by [Tom Callahan](https://www.linkedin.com/in/tom-cndc/). Join the [OCI community here on Linkedin](https://www.linkedin.com/company/open-commerce-solutions)

@@ -1,8 +1,8 @@
-# Open Wallet - Project Complete 
+# Open Commerce Initiative (OCI) - Project Complete
 
 ## Summary
 
-Successfully created **Open Wallet**, an open-source mobile wallet system
+Successfully created the **Open Commerce Initiative (OCI)** platform, powered by the **Open Commerce Protocol (OCP)** SDK.
 
 ## What Was Created
 
@@ -170,7 +170,7 @@ Follow instructions in GITHUB_DEPLOYMENT_INSTRUCTIONS.md
 ## Next Steps
 
 ### Immediate
-1. Deploy to GitHub: https://github.com/ThomasC3/open-wallet
+1. Deploy to GitHub: https://github.com/dcplatforms/Open-Commerce-Protocol
 2. Add repository topics for discoverability
 3. Enable GitHub Discussions
 4. Configure branch protection
@@ -226,7 +226,7 @@ cd /tmp/open-wallet
 Or manually:
 ```bash
 cd /tmp/open-wallet
-git remote add origin https://github.com/ThomasC3/open-wallet.git
+git remote add origin https://github.com/dcplatforms/Open-Commerce-Protocol.git
 git push -u origin main
 git tag -a v1.0.0 -m "Initial release"
 git push origin v1.0.0
@@ -253,13 +253,17 @@ git push origin v1.0.0
 
 **Project Successfully Completed**
 
-Open Wallet is a production-ready, open-source wallet system that:
+Open Commerce Initiative (OCI) is a production-ready, open-source initiative that:
 - Maintains all security and functionality of the original
 - Removes all proprietary branding and dependencies
 - Provides comprehensive documentation
 - Supports multiple deployment options
 - Welcomes community contributions
 - Available under MIT License
+
+---
+
+Open Commerce Protocol (OCP) is the underlying SDK of Open Commerce Initiative (OCI). OCP is authored by [Tom Callahan](https://www.linkedin.com/in/tom-cndc/). Join the [OCI community here on Linkedin](https://www.linkedin.com/company/open-commerce-solutions)
 
 ---
 

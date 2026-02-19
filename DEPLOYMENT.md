@@ -1,6 +1,6 @@
 # Deployment Guide
 
-This guide covers deploying Open Wallet to various environments.
+This guide covers deploying the **Open Commerce Initiative (OCI)** platform, powered by the **Open Commerce Protocol (OCP)** SDK, to various environments.
 
 ## Quick Deploy Options
 
@@ -8,8 +8,8 @@ This guide covers deploying Open Wallet to various environments.
 
 ```bash
 # Clone the repository
-git clone https://github.com/ThomasC3/open-wallet.git
-cd open-wallet
+git clone https://github.com/dcplatforms/Open-Commerce-Protocol.git
+cd Open-Commerce-Protocol
 
 # Create environment file
 cp .env.example .env
@@ -30,8 +30,8 @@ docker-compose logs -f api
 # Prerequisites: Node.js 18+, MongoDB/PostgreSQL running
 
 # Clone and install
-git clone https://github.com/ThomasC3/open-wallet.git
-cd open-wallet
+git clone https://github.com/dcplatforms/Open-Commerce-Protocol.git
+cd Open-Commerce-Protocol
 npm install
 
 # Configure environment
@@ -142,7 +142,7 @@ sudo chown $USER:$USER /opt/open-wallet
 cd /opt/open-wallet
 
 # Clone repository
-git clone https://github.com/ThomasC3/open-wallet.git .
+git clone https://github.com/dcplatforms/Open-Commerce-Protocol.git .
 
 # Install dependencies
 npm ci --only=production
@@ -604,5 +604,9 @@ pm2 start src/index.js --name open-wallet --max-memory-restart 1G
 
 For deployment assistance:
 - Documentation: [README.md](README.md)
-- Issues: [GitHub Issues](https://github.com/ThomasC3/open-wallet/issues)
+- Issues: [GitHub Issues](https://github.com/dcplatforms/Open-Commerce-Protocol/issues)
 - Community: [Discord](https://discord.gg/openwallet)
+
+---
+
+Open Commerce Protocol (OCP) is the underlying SDK of Open Commerce Initiative (OCI). OCP is authored by [Tom Callahan](https://www.linkedin.com/in/tom-cndc/). Join the [OCI community here on Linkedin](https://www.linkedin.com/company/open-commerce-solutions)

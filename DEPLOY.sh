@@ -3,10 +3,10 @@
 
 set -e
 
-GITHUB_USER="ThomasC3"
-REPO_NAME="open-wallet"
+GITHUB_USER="dcplatforms"
+REPO_NAME="Open-Commerce-Protocol"
 
-echo "🚀 Deploying Open Wallet to GitHub..."
+echo "🚀 Deploying Open Commerce Initiative to GitHub..."
 echo ""
 
 # Check if gh CLI is available
@@ -24,7 +24,7 @@ fi
 if [ "$MANUAL" = false ]; then
     echo "📦 Creating GitHub repository..."
     gh repo create $GITHUB_USER/$REPO_NAME --public \
-        --description "A secure, tokenized mobile wallet system optimized for vault transactions" \
+        --description "The standard for Agentic Commerce. Powered by the Open Commerce Protocol (OCP) SDK." \
         || echo "Repository may already exist, continuing..."
 fi
 
@@ -39,18 +39,18 @@ git push -u origin main
 
 # Create release tag
 echo "🏷️  Creating release tag..."
-git tag -a v1.0.0 -m "Initial release of Open Wallet v1.0.0" 2>/dev/null || echo "Tag already exists"
+git tag -a v1.0.0 -m "Initial release of Open Commerce Initiative v1.0.0" 2>/dev/null || echo "Tag already exists"
 git push origin v1.0.0 2>/dev/null || echo "Tag already pushed"
 
 # Create GitHub release
 if [ "$MANUAL" = false ]; then
     echo "📝 Creating GitHub release..."
     gh release create v1.0.0 \
-        --title "Open Wallet v1.0.0" \
-        --notes "Initial release with complete wallet infrastructure
+        --title "Open Commerce Initiative v1.0.0" \
+        --notes "Initial release with complete Open Commerce Protocol (OCP) infrastructure
 
 Features:
-- Core wallet management system
+- Core wallet management system powered by OCP
 - Tokenized payment processing with Basis Theory
 - Apple Pay and Google Pay integration
 - MongoDB and PostgreSQL support

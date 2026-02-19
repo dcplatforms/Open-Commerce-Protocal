@@ -1,8 +1,8 @@
-# Open Commerce Protocol Architecture
+# Open Commerce Initiative (OCI) Architecture
 
 ## Overview
 
-Open Commerce Protocol (OCP) is designed as a modular, service-oriented system that enables agentic commerce, secure wallet management, and Web3 capabilities. The architecture emphasizes security, scalability, and developer experience for both human and autonomous agent users.
+The Open Commerce Initiative (OCI), powered by the **Open Commerce Protocol (OCP)**, is designed as a modular, service-oriented system that enables agentic commerce, secure wallet management, and Web3 capabilities. The architecture emphasizes security, scalability, and developer experience for both human and autonomous agent users.
 
 ## System Architecture
 
@@ -487,3 +487,7 @@ services:
 ---
 
 For implementation details, see source code documentation and API reference.
+
+---
+
+Open Commerce Protocol (OCP) is the underlying SDK of Open Commerce Initiative (OCI). OCP is authored by [Tom Callahan](https://www.linkedin.com/in/tom-cndc/). Join the [OCI community here on Linkedin](https://www.linkedin.com/company/open-commerce-solutions)
