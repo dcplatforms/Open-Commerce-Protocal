@@ -2,48 +2,43 @@
 
 # Open Commerce Initiative (OCI): The Standard for Agentic Commerce
 
-## 1.0 The Strategic Imperative: Powering the Agent Economy
+**Open Commerce Protocol (OCP)** is the foundational SDK powering the **Open Commerce Initiative (OCI)**. It provides a robust, secure, and scalable framework for building the next generation of financial applications, specializing in **Agentic Commerce** and **Web3-integrated wallets**.
 
 The Open Commerce Initiative (OCI) is an open-source initiative designed to enable seamless, autonomous commerce between AI agents, while providing a robust payment infrastructure for traditional businesses. By unifying Agent-to-Agent (A2A) payments, Universal Commerce Protocol (UCP) transactions, and a flexible wallet architecture, OCI empowers developers to build the next generation of financial applications.
 
 OCI is powered by the **Open Commerce Protocol (OCP)**, which shifts the paradigm from simple payment processing to a comprehensive commerce enablement layer. It allows businesses to define custom agents with specific spending limits and authorized counterparties, facilitating trustless automation in procurement, negotiation, and settlement.
 
-The fundamental difference between the "Traditional Model" and the "Wallet Model" is stark. The following comparison, based on a scenario of 1,000 transactions at $10 each, quantifies the dramatic cost savings and margin improvement.
+### 🤖 Agentic Commerce
+*   **Agent-to-Agent (A2A) Transfers**: Enable instant, policy-compliant settlements between autonomous AI agents.
+*   **Universal Commerce Protocol (UCP)**: A standardized JSON schema for communicating commerce intents across platforms.
+*   **Policy Enforcement**: Define granular spending limits and authorized counterparty lists for every agent.
 
-Feature	Traditional Model (Card-on-File)	Wallet Model (Pre-funded)
-Total Revenue	$10,000	$10,000
-Transactions	1,000 transactions @ $10	1,000 transactions from wallet balance
-Fee Basis	Fees on every transaction	Fees only on deposits (e.g., 100 deposits @ $100)
-Processing Fees	$590 (1,000 * ($10 * 2.9% + $0.30))	$320 (100 * ($100 * 2.9% + $0.30))
-Net Revenue	$9,410	$9,680
-Financial Outcome	Standard operational cost	45.7% reduction in processing fees
+### 🔐 Web3 & Secure Vaulting
+*   **Secure Enclaves**: Sign arbitrary data and blockchain transactions without exposing private keys.
+*   **Basis Theory Integration**: Leverage PCI-compliant tokenization for secure storage of sensitive credentials and private keys.
+*   **Multi-Chain Support**: Architected to handle diverse blockchain ecosystems and Web3 identities.
 
-This architectural shift delivers a cascade of key business benefits that extend far beyond simple cost reduction:
+### 💳 Tokenized Wallet Infrastructure
+*   **PCI-Compliant Tokenization**: No raw card data ever touches your servers.
+*   **Mobile-First Integration**: Native support for Apple Pay and Google Pay.
+*   **Atomic Balance Management**: Real-time accuracy with built-in race condition prevention.
+*   **Micro-transactions**: Enable 0-fee internal ledger transfers, making micro-payments profitable.
 
-* Lower Payment Processing Costs As demonstrated in the comparison above, processing payments from pre-funded wallet balances can reduce overall payment processing expenses significantly, as fees are paid only when users make a deposit, not on every subsequent transaction. This can reduce overall payment processing expenses by as much as 90%.
-* Improved Cash Flow Pre-funded wallets provide a predictable stream of working capital. Funds are collected upfront, improving the business's cash position and reducing reliance on the fluctuating timelines of traditional payment settlements.
-* Higher Customer Lifetime Value Wallet users demonstrate significantly higher engagement, interacting with the platform 3-5x more frequently than non-wallet users. This increased activity directly translates to higher lifetime value and deeper brand loyalty.
-* Reduced Churn Stored value in a wallet creates a natural switching cost. Customers with an existing balance are less likely to churn, as it requires them to abandon their funds, thereby increasing retention rates.
-* Faster Checkout One-click payments from a wallet balance eliminate the friction of entering card details for every purchase. This streamlined experience is proven to increase conversion rates by 20-30%, reducing cart abandonment and capturing more revenue.
-* Float Income Generation The aggregated balances held across all user wallets create a cash reserve, or "float." This capital can be held in an interest-bearing account, generating a new, passive income stream for the business.
-* Promotional Flexibility A wallet system provides a powerful and cost-effective platform for executing marketing strategies. Businesses can instantly issue deposit bonuses, loyalty rewards, and other incentives directly into user accounts without incurring additional processing fees.
+---
 
-By transitioning from a high-friction, high-cost payment model to a streamlined wallet infrastructure, a business can not only protect its margins but also unlock powerful new strategies for growth. The following section provides a detailed exploration of these specific revenue-generating opportunities.
+## 📈 Business Strategy
 
-2.0 A Deep Dive into Revenue Optimization Strategies
+For a deep dive into the economic advantages of OCP, including revenue optimization, margin improvement, and the strategic imperative for the agent economy, see the [Business Strategy Documentation](docs/BUSINESS_STRATEGY.md).
 
-Moving beyond simple cost reduction, the Open Wallet system unlocks multiple, distinct streams for revenue optimization and customer retention. It transforms the payment function from a cost center into a strategic asset for growth. This section deconstructs ten specific strategies and analyzes their quantifiable business impact, illustrating how a tokenized wallet can fundamentally reshape a company's financial performance and competitive positioning.
+---
 
-Eliminate Per-Transaction Fees
+## 🛠️ Quick Start
 
-* The Problem: Traditional payment processors levy a fee (e.g., 2.9% + $0.30) on every single transaction, which can consume 5-10% of total revenue, particularly for businesses with small average ticket sizes.
-* The Open Wallet Solution: With Open Wallet, the processing fee is charged only when users deposit funds. All subsequent transactions from the wallet balance are internal ledger movements with zero processing cost, reducing overall payment expenses by 70-90%.
-* Real-World Impact: For a ride-sharing platform with 10,000 daily rides at an average fare of $8.50, the annual savings are staggering.
-  * Traditional Fees: $2,465/day
-  * Wallet Fees: $255/day
-  * Annual Savings: $806,650
+### Installation
 
-Increase Average Transaction Value
+```bash
+# Using npm
+npm install @open-commerce-protocol/core
 
 * The Opportunity: The psychology of spending from a pre-loaded balance is fundamentally different. Users exhibit lower price sensitivity and a higher propensity for impulse purchases, leading to a 30-40% higher transaction frequency and a 25% higher average order value (AOV).
 * The Open Wallet Solution: Implement strategies like deposit bonuses (e.g., "Add $50, get $5 free"), tiered rewards for larger deposits, and auto-reload functionality to encourage users to maintain higher balances and spend more freely.
@@ -204,253 +199,63 @@ cd Open-Commerce-Protocol
 
 # Install dependencies
 npm install
+```
 
-# Configure environment
-cp .env.example .env
-# Edit .env with your configuration
+### Basic Usage
 
-# Run database migrations
-npm run migrate
+```javascript
+const { OCPClient } = require('@open-commerce-protocol/core');
 
-# Start the server
-npm start
-
-
-Installation Methods:
-
-* Using npm: npm install @open-wallet/core
-* Using yarn: yarn add @open-wallet/core
-* Using Docker: docker pull open-wallet/api:latest
-* From Source: Clone the repository and run npm install followed by npm start.
-
-Configuration can be managed through environment variables or dedicated configuration files.
-
-Environment Variables: Key variables include server settings, database connection URLs, tokenization provider API keys, and security secrets.
-
-* NODE_ENV
-* PORT
-* DATABASE_URL
-* TOKENIZATION_API_KEY
-* JWT_SECRET
-* ENCRYPTION_KEY
-* APPLE_PAY_MERCHANT_ID
-* GOOGLE_PAY_MERCHANT_ID
-
-Configuration File (config/default.json): For more complex configurations, a JSON file allows for detailed control over wallet rules, transaction parameters, and security settings like rate limiting.
-
-{
-  "server": {
-    "port": 3000,
-    "host": "0.0.0.0"
-  },
-  "wallet": {
-    "defaultCurrency": "USD",
-    "minBalance": 0,
-    "maxBalance": 10000,
-    "autoTopUp": {
-      "enabled": true,
-      "threshold": 10,
-      "amount": 50
-    }
-  },
-  "transactions": {
-    "maxRetries": 3,
-    "timeoutMs": 30000,
-    "idempotencyWindowHours": 24
-  },
-  "security": {
-    "rateLimit": {
-      "windowMs": 900000,
-      "max": 100
-    }
-  }
-}
-
-
-This clear architecture and straightforward deployment process enable rapid implementation. The following section focuses on the critical aspects of security, compliance, and final mobile integration.
-
-5.0 Security, Compliance, and Mobile Integration
-
-In any system that handles payments, security and compliance are non-negotiable foundations. A breach of trust can have catastrophic consequences for both a business and its customers. The Open Wallet system is architected from the ground up with a security-first mindset, designed to meet stringent PCI DSS compliance standards and provide a robust framework for protecting sensitive data. This section details the system's approach to security, its compliance features, and provides concrete examples of mobile SDK integration.
-
-PCI DSS Compliance and Security Framework
-
-Open Wallet is designed to help businesses maintain PCI DSS compliance by architecturally removing raw card data from their environment. By leveraging a third-party tokenization provider, the system never stores, processes, or transmits sensitive cardholder information.
-
-Core Compliance Features The following features are central to its compliance and security posture:
-
-* Encrypted Storage: All sensitive data, including payment tokens and user information, is encrypted at rest using strong algorithms like AES-256-GCM.
-* TLS Required: All API communication is enforced over HTTPS/TLS 1.3, ensuring that data is encrypted and secure while in transit.
-* Token Vault: Payment tokens are stored in a secure, isolated vault with strict access controls, preventing unauthorized access.
-* Audit Logging: A complete and immutable audit trail is maintained for all operations, providing full traceability for security reviews and forensic analysis.
-
-Recommended Best Practices To maintain a secure environment, the following operational practices are recommended:
-
-1. Use Environment Variables: Never commit secrets such as API keys, database URLs, or encryption keys to version control.
-2. Rotate Keys Regularly: Implement a policy for regularly rotating all encryption keys and security credentials to limit the window of exposure.
-3. Enable Rate Limiting: Configure and enable rate limiting to protect the API against brute-force attacks, abuse, and potential DDoS vectors.
-4. Monitor Suspicious Activity: Set up alerts and monitoring for unusual transaction patterns or access attempts to detect and respond to threats proactively.
-5. Regular Security Audits: Conduct periodic security reviews and vulnerability assessments of the deployed environment.
-
-Token Security Measures The security of payment tokens is paramount. The system ensures their protection through a multi-layered approach:
-
-* Encryption at Rest: All tokens are encrypted using industry-standard AES-256-GCM before being stored in the database.
-* Access Controls: Strict, role-based access controls ensure that only authorized services and administrators can access or manage tokens.
-* Expiration: Tokens can be configured with an automatic expiration period to limit their lifespan and reduce risk.
-* Audit Trail: All access to and use of tokens is meticulously logged to provide a complete history of their lifecycle.
-
-Mobile Integration Examples
-
-Integrating the Open Wallet system into mobile applications is streamlined with dedicated SDKs and clear examples.
-
-iOS (Swift) Integration Example
-
-import OpenWallet
-
-// Initialize the SDK
-let wallet = OpenWallet(apiKey: "your_api_key", baseURL: "https://api.yourapp.com")
-
-// Create Apple Pay payment request
-let paymentRequest = PKPaymentRequest()
-paymentRequest.merchantIdentifier = "merchant.com.yourapp"
-paymentRequest.supportedNetworks = [.visa, .masterCard, .amex]
-paymentRequest.merchantCapabilities = .capability3DS
-paymentRequest.countryCode = "US"
-paymentRequest.currencyCode = "USD"
-
-// Process payment
-wallet.processApplePayPayment(walletId: "wallet-456", paymentData: payment.token.paymentData) { result in
-  switch result {
-    case .success(let transaction):
-      print("Payment successful: \(transaction.id)")
-    case .failure(let error):
-      print("Payment failed: \(error)")
-  }
-}
-
-
-Android (Kotlin) Integration Example
-
-import com.openwallet.sdk.OpenWallet
-import com.openwallet.sdk.GooglePayConfig
-
-// Initialize the SDK
-val wallet = OpenWallet(apiKey = "your_api_key", baseUrl = "https://api.yourapp.com")
-
-// Configure Google Pay
-val googlePayConfig = GooglePayConfig(
-  environment = WalletConstants.ENVIRONMENT_PRODUCTION,
-  merchantId = "your_google_merchant_id",
-  merchantName = "Your App"
-)
-
-// Process payment
-wallet.processGooglePayPayment(walletId = "wallet-456", paymentData = paymentData) { result ->
-  when (result) {
-    is Result.Success -> { println("Payment successful: ${result.data.transactionId}") }
-    is Result.Error -> { println("Payment failed: ${result.error}") }
-  }
-}
-
-
-React Native Integration Example
-
-import OpenWallet from ' @open-wallet/react-native';
-
-// Initialize
-const wallet = new OpenWallet({
-  apiKey: 'your_api_key',
-  baseURL: 'https://api.yourapp.com'
+const ocp = new OCPClient({
+  apiKey: process.env.OCP_API_KEY,
+  vaultUrl: process.env.VAULT_URL
 });
 
-// Add funds using Apple Pay
-const addFunds = async () => {
-  try {
-    const result = await wallet.addFundsWithApplePay({
-      walletId: 'wallet-456',
-      amount: 50.00,
-      merchantId: 'merchant.com.yourapp'
-    });
-    console.log('Funds added:', result.transactionId);
-  } catch (error) {
-    console.error('Payment failed:', error);
-  }
-};
+// Create a tokenized commerce agent
+const agent = await ocp.agents.create({
+  name: 'Procurement-Agent-01',
+  limits: { daily: 500, currency: 'USD' }
+});
 
+// Execute an Agent-to-Agent payment
+const transaction = await ocp.payments.executeA2A({
+  from: 'agent_id_1',
+  to: 'agent_id_2',
+  amount: 25.50,
+  intent: 'SERVICE_PAYMENT_UCP'
+});
+```
 
-This robust security posture and straightforward mobile integration ensure a trusted and efficient implementation. The final section will detail the tools available to developers to further accelerate this process.
+---
 
-6.0 Developer Experience: UI Kit and API Documentation
+## 🏗️ Architecture
 
-A superior developer experience is crucial for accelerating time-to-market, reducing implementation costs, and fostering innovation. The Open Wallet system is equipped with a suite of tools designed to empower developers, including a production-ready UI Kit and a comprehensive, well-documented RESTful API. These resources enable development teams to build, test, and deploy a full-featured wallet experience efficiently.
+OCP is built on a modular, service-oriented architecture:
+1.  **Wallet Service**: Core ledger and balance management.
+2.  **Agent Service**: Identity and policy orchestration.
+3.  **Vault Service**: Secure tokenization and cryptographic signing.
+4.  **UCP Service**: Commerce intent parsing and execution.
 
-Production-Ready UI Kit
+Refer to the [Architecture Documentation](docs/ARCHITECTURE.md) for a deep dive.
 
-Open Wallet includes a complete UI Kit to help teams build a beautiful, branded wallet experience in minutes. It provides a library of pre-built, customizable React components that handle the most common interface requirements, allowing developers to focus on unique business logic rather than re-inventing core UI elements.
+---
 
-UI Kit Features:
+## 🛡️ Security & Compliance
 
-* Pre-built Components: Over 20 production-ready React components covering everything from balance displays to transaction lists.
-* Fully Themeable: A complete design token system allows for deep customization of colors, typography, and styles to match any brand identity.
-* Responsive Design: Components are built with a mobile-first approach to ensure a seamless experience on any device.
-* Accessible: Designed to be WCAG 2.1 AA compliant, ensuring the interface is usable by everyone.
-* TypeScript Support: Full type definitions are included for a more robust and error-free development process.
-* Framework Agnostic: Can be used with standard React, React Native, or frameworks like Next.js.
+*   **AES-256-GCM Encryption**: All sensitive data is encrypted at rest.
+*   **TLS 1.3**: Mandatory encryption for all data in transit.
+*   **PCI DSS Ready**: Designed to minimize PCI scope by using vault-based tokenization.
+*   **Audit Logging**: Immutable history for all ledger and on-chain activities.
 
-Quick UI Kit Example: The following snippet demonstrates how easily a complete, themed wallet dashboard can be rendered.
+---
 
-import { WalletProvider, WalletDashboard } from ' @open-wallet/ui-kit';
+## 🤝 Community & Support
 
-function App() {
-  return (
-    <WalletProvider
-      theme={{
-        colors: {
-          primary: '#007AFF',
-          gradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
-        },
-        brandName: 'Your Brand'
-      }}
-    >
-      <WalletDashboard />
-    </WalletProvider>
-  );
-}
+*   **Documentation**: [Open Commerce Initiative Documentation Hub](docs/product-hub/index.html)
+*   **Contributing**: See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+*   **Issues**: [GitHub Issues](https://github.com/dcplatforms/Open-Commerce-Protocol/issues)
 
-
-Available Components:
-
-* Layout Components: WalletDashboard, WalletCard, TransactionList
-* Payment Components: AddFundsModal, ApplePayButton, GooglePayButton, PaymentMethodSelector
-* UI Components: Button, Input, Card, Badge, LoadingSpinner
-
-Comprehensive API Documentation
-
-All API requests require Bearer token authentication for security. The RESTful API is organized logically into endpoints that provide granular control over every aspect of the wallet system.
-
-Wallet Endpoints
-
-* Create Wallet (POST /v1/wallet) This endpoint creates a new wallet associated with a specific user.
-* Request:
-* Response:
-* Get Wallet Balance (GET /v1/wallet/:walletId) This endpoint retrieves the current balance and status of a specific wallet.
-* Response:
-
-Mobile Payment Endpoints
-
-* Initialize Apple Pay (POST /v1/payment/apple-pay/init) This endpoint creates a merchant session required to initiate an Apple Pay transaction.
-* Request:
-* Response:
-
-Transaction Endpoints
-
-* Get Transaction History (GET /v1/wallet/:walletId/transactions) This endpoint retrieves a paginated list of all transactions for a given wallet.
-* Response:
-
-Admin Endpoints
-
-* Dashboard Overview (GET /v1/admin/dashboard) This endpoint provides aggregate statistics for the entire wallet system.
-* Response:
+---
 
 As detailed throughout this proposal, the Open Wallet system provides a comprehensive solution for transforming a company's payment infrastructure, delivering value through direct revenue optimization, robust security, and a superior developer experience.
 
