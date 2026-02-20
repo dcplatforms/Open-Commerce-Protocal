@@ -6,84 +6,99 @@ document.addEventListener('DOMContentLoaded', () => {
 
     currentYearSpan.textContent = new Date().getFullYear();
 
-    // Initialize marked.js (Assuming it's loaded from lib/marked.min.js)
+    // Initialize marked.js
     if (typeof marked === 'undefined') {
-        console.error("marked.js library not loaded. Please ensure lib/marked.min.js is accessible.");
-        contentArea.innerHTML = marked.parse('# Error\nMarkdown parser not loaded. Cannot display content.');
+        console.error("marked.js library not loaded.");
+        contentArea.innerHTML = '<h1>Error</h1><p>Markdown parser not loaded. Cannot display content.</p>';
         return;
     }
 
+    const getBasePath = () => {
+        // For GitHub Pages, the base path is often /repository-name/
+        const pathParts = window.location.pathname.split('/');
+        // Assuming the product-hub is at /Open-Commerce-Protocol/product-hub/index.html
+        // We want the base to be /Open-Commerce-Protocol/product-hub/
+        const repoName = 'Open-Commerce-Protocol';
+        const productHubDir = 'product-hub';
+
+        const repoIndex = pathParts.indexOf(repoName);
+        const hubIndex = pathParts.indexOf(productHubDir);
+
+        if (repoIndex !== -1 && hubIndex !== -1 && hubIndex > repoIndex) {
+            return pathParts.slice(0, hubIndex + 1).join('/') + '/';
+        }
+        // Fallback for local testing or different deployment
+        return window.location.pathname.replace(/index\.html$/, '');
+    };
+
+    const BASE_URL = getBasePath();
+
+    const renderHomeContent = () => {
+        contentArea.innerHTML = "
+            <h2>Welcome to the Open Commerce Protocol Product Hub</h2>
+            <p>Explore the SDK, API documentation, integration guides, and security best practices for building secure and efficient open commerce applications.</p>
+            <p>The Open Commerce Protocol (OCP) is an open-source SDK designed to revolutionize commerce enablement by providing a secure, tokenized payment system. It powers the Open Commerce Initiative (OCI), focusing on next-generation financial applications, particularly in \"Agentic Commerce\" and Web3-integrated wallets.</p>
+            <p>OCP transforms traditional payment processing into a dynamic commerce layer, enabling businesses and developers to create autonomous agents with predefined spending limits, authorized counterparties, and trustless automation.</p>
+            <h3>Get Started Today!</h3>
+            <p>Head over to the <a href=\"#getting-started\" data-path=\"getting-started\">Getting Started</a> guide to begin your journey with OCP.</p>
+        ";
+    };
+
     const loadContent = async (path) => {
-        let filePath = `/content/`;
+        contentArea.innerHTML = '<div class="loading-spinner"></div>'; // Show loading spinner
+        let markdownPath = `${BASE_URL}content/`;
+
         if (path === 'home') {
-            // For home, we'll manually set content or fetch a specific home markdown if exists
-            contentArea.innerHTML = `
-                <h2>Welcome to the Open Commerce Protocol Product Hub</h2>
-                <p>Explore the SDK, API documentation, integration guides, and security best practices for building secure and efficient open commerce applications.</p>
-                <p>The Open Commerce Protocol (OCP) is an open-source SDK designed to revolutionize commerce enablement by providing a secure, tokenized payment system. It powers the Open Commerce Initiative (OCI), focusing on next-generation financial applications, particularly in "Agentic Commerce" and Web3-integrated wallets.</p>
-                <p>OCP transforms traditional payment processing into a dynamic commerce layer, enabling businesses and developers to create autonomous agents with predefined spending limits, authorized counterparties, and trustless automation.</p>
-                <h3>Get Started Today!</h3>
-                <p>Head over to the <a href="#" data-path="getting-started">Getting Started</a> guide to begin your journey with OCP.</p>
-            `;
-            // Update browser history
-            history.pushState({ path: 'home' }, '', '/');
+            renderHomeContent();
             return;
         }
 
-        filePath += `${path}.md`;
+        markdownPath += `${path}.md`;
 
         try {
-            const response = await fetch(filePath);
+            const response = await fetch(markdownPath);
             if (!response.ok) {
-                throw new Error(`Failed to fetch ${filePath}: ${response.statusText}`);
+                throw new Error(`Failed to fetch ${markdownPath}: ${response.statusText}`);
             }
             const markdownText = await response.text();
-            contentArea.innerHTML = marked.parse(markdownText); // Use marked.parse to convert markdown to HTML
-
-            // Update browser history
-            history.pushState({ path }, '', `?doc=${path}`);
-            window.scrollTo(0, 0); // Scroll to top on new content load
+            contentArea.innerHTML = marked.parse(markdownText);
         } catch (error) {
             console.error("Error loading markdown content:", error);
-            contentArea.innerHTML = marked.parse(`# Error\nFailed to load documentation for "${path}".\nPlease check the URL or try navigating from the home page.`);
-            // Update browser history for error state
-            history.pushState({ path: 'error' }, '', `?doc=error&path=${path}`);
+            contentArea.innerHTML = marked.parse(`# Error\nFailed to load documentation for \"${path}\".\nPlease check the URL or try navigating from the home page.`);
+        } finally {
+            window.scrollTo(0, 0); // Scroll to top after loading content or error
         }
     };
 
-    // Handle navigation clicks
+    // Handle navigation clicks (using hash for routing)
     navLinks.forEach(link => {
         link.addEventListener('click', (event) => {
             event.preventDefault();
             const path = link.getAttribute('data-path');
-            loadContent(path);
+            window.location.hash = path;
         });
     });
 
     siteTitle.addEventListener('click', (event) => {
         event.preventDefault();
-        loadContent('home');
+        window.location.hash = 'home';
     });
 
-    // Handle browser back/forward buttons
-    window.addEventListener('popstate', (event) => {
-        if (event.state && event.state.path) {
-            loadContent(event.state.path);
-        } else if (window.location.search) {
-            const params = new URLSearchParams(window.location.search);
-            const docPath = params.get('doc');
-            if (docPath) {
-                loadContent(docPath);
-            }
+    // Handle hash changes for routing
+    const handleHashChange = () => {
+        const hash = window.location.hash.substring(1); // Remove '#'
+        if (hash) {
+            loadContent(hash);
         } else {
-            loadContent('home');
+            loadContent('home'); // Default to home if no hash
         }
-    });
+    };
 
-    // Initial content load based on URL or default to home
-    const initialPath = new URLSearchParams(window.location.search).get('doc');
-    if (initialPath) {
-        loadContent(initialPath);
+    window.addEventListener('hashchange', handleHashChange);
+
+    // Initial content load based on hash or default to home
+    if (window.location.hash) {
+        handleHashChange();
     } else {
         loadContent('home');
     }
