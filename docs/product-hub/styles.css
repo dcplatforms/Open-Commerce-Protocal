@@ -10,6 +10,10 @@
     --accent-color: #535bf2;
     --bg-gradient-start: #e0eafc;
     --bg-gradient-end: #cfdef3;
+
+    /* New variables for frosted texture */
+    --frosted-texture: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="4" height="4" viewBox="0 0 4 4"><circle fill="%23fff" cx="2" cy="2" r="0.5"/></svg>');
+    --frosted-texture-opacity: 0.05;
 }
 
 body {
@@ -36,16 +40,34 @@ body {
 
 /* Glassmorphism base style */
 .glassmorphism {
+    position: relative; /* For pseudo-element */
     background-color: var(--glass-color);
-    backdrop-filter: blur(25px) saturate(200%); /* Stronger blur, more saturation for 3D feel */
-    -webkit-backdrop-filter: blur(25px) saturate(200%);
+    backdrop-filter: blur(28px) saturate(220%); /* Stronger blur, more saturation for liquid crystal */
+    -webkit-backdrop-filter: blur(28px) saturate(220%);
     border: 1px solid var(--glass-border);
     box-shadow: 0 10px 40px var(--glass-shadow), 0 0 0px 1px rgba(255,255,255,0.1); /* Layered shadow for depth */
     border-radius: 20px; /* Even more pronounced rounded corners */
     transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Smooth cubic-bezier transition */
+    overflow: hidden; /* Ensure pseudo-element stays within bounds */
 }
 
-/* Hover effect for glassmorphism elements */
+/* Frosted texture overlay */
+.glassmorphism::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: var(--frosted-texture);
+    background-size: 4px 4px; /* Size of the texture pattern */
+    opacity: var(--frosted-texture-opacity);
+    pointer-events: none; /* Allow clicks to pass through */
+    mix-blend-mode: soft-light; /* Blend with background */
+    z-index: -1; /* Behind content */
+}
+
+/* Hover effect for glassmorphism elements - adding subtle 3D lift */
 .glassmorphism:hover {
     box-shadow: 0 15px 60px rgba(0,0,0,0.15), 0 0 0px 1px rgba(255,255,255,0.15); /* Stronger lift on hover */
     transform: translateY(-5px) scale(1.01); /* More pronounced lift and slight scale */
