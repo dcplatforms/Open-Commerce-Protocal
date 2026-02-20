@@ -45,10 +45,10 @@ body {
     transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Smooth cubic-bezier transition */
 }
 
-/* Hover effect for glassmorphism elements - adding subtle 3D lift */
+/* Hover effect for glassmorphism elements */
 .glassmorphism:hover {
     box-shadow: 0 15px 60px rgba(0,0,0,0.15), 0 0 0px 1px rgba(255,255,255,0.15); /* Stronger lift on hover */
-    transform: translateY(-3px); /* Slight lift */
+    transform: translateY(-5px) scale(1.01); /* More pronounced lift and slight scale */
 }
 
 .header {
@@ -59,6 +59,7 @@ body {
     margin: 20px auto; /* Centered with more margin from edges */
     max-width: 1200px;
     width: calc(100% - 40px); /* Account for margin */
+    transform: perspective(1px) translateZ(0); /* Force hardware acceleration */
 }
 
 .header-content {
@@ -77,11 +78,22 @@ body {
     display: flex;
     align-items: center;
     gap: 10px; /* Space between icon and text */
+    transition: all 0.3s ease-in-out;
+}
+
+.site-title:hover {
+    color: var(--primary-color);
+    transform: scale(1.02);
 }
 
 .site-title i {
     font-size: 0.9em; /* Adjust icon size relative to text */
     color: var(--primary-color);
+    transition: color 0.3s ease;
+}
+
+.site-title:hover i {
+    color: var(--accent-color);
 }
 
 .main-nav ul {
@@ -102,61 +114,60 @@ body {
     font-weight: 500;
     font-size: 1.1em;
     padding: 10px 0; /* More vertical padding */
-    display: flex; /* Allow icon and text to align */
+    display: flex;
     align-items: center;
     gap: 8px; /* Space between icon and text */
-    transition: color 0.3s ease, transform 0.2s ease, text-shadow 0.3s ease;
+    transition: color 0.3s ease, transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), text-shadow 0.3s ease;
+    position: relative; /* For underline effect */
 }
 
 .main-nav a:hover {
     color: var(--primary-color);
-    transform: translateY(-4px); /* More pronounced hover lift */
-    text-shadow: 0 0 10px rgba(0, 123, 255, 0.4); /* Brighter glow */
+    transform: translateY(-5px); /* More pronounced hover lift */
+    text-shadow: 0 0 12px rgba(0, 123, 255, 0.6); /* Brighter glow */
+}
+
+/* Subtle underline effect */
+.main-nav a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -5px;
+    left: 0;
+    background-color: var(--primary-color);
+    transition: width 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.main-nav a:hover::after {
+    width: 100%;
 }
 
 .main-nav i {
-    font-size: 0.9em; /* Adjust icon size */
+    font-size: 0.9em;
     transition: color 0.3s ease;
 }
 
 .main-nav a:hover i {
-    color: var(--primary-color); /* Icon color matches text on hover */
+    color: var(--primary-color);
 }
 
 /* Dropdown styles */
 .dropdown-content {
     display: none;
     position: absolute;
-    min-width: 220px; /* Wider dropdown */
+    min-width: 220px;
     z-index: 1001;
-    padding: 15px 0; /* More padding */
-    margin-top: 20px; /* More space from parent link */
+    padding: 15px 0;
+    margin-top: 20px;
     left: 50%;
     transform: translateX(-50%) translateY(10px); /* Initial slight drop for animation */
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+    transition: opacity 0.4s ease-out, visibility 0.4s ease-out, transform 0.4s ease-out; /* Smoother transition */
     transform-origin: top center;
     top: 100%;
-}
-
-.dropdown-content a {
-    padding: 12px 25px; /* More padding */
-    text-align: left;
-    font-size: 1em;
-    font-weight: 300;
-    color: var(--text-dark);
-    display: flex; /* Align icon and text */
-    align-items: center;
-    gap: 10px;
-    width: 100%; /* Ensure full width clickable area */
-    box-sizing: border-box; /* Include padding in width */
-}
-
-.dropdown-content a:hover {
-    background-color: rgba(0,0,0,0.08); /* Stronger subtle background hover */
-    transform: none; /* Remove parent hover transform */
-    color: var(--primary-color); /* Match hover color */
+    pointer-events: none; /* Allow mouse to pass through when hidden */
 }
 
 .dropdown:hover .dropdown-content {
@@ -164,35 +175,58 @@ body {
     opacity: 1;
     visibility: visible;
     transform: translateX(-50%) translateY(0); /* Animate to final position */
+    pointer-events: auto; /* Enable interaction when visible */
+}
+
+.dropdown-content a {
+    padding: 12px 25px;
+    text-align: left;
+    font-size: 1em;
+    font-weight: 300;
+    color: var(--text-dark);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.dropdown-content a:hover {
+    background-color: rgba(0,0,0,0.12); /* Stronger subtle background hover */
+    color: var(--primary-color);
+    transform: translateX(5px); /* Slight slide effect on hover */
 }
 
 .main-content {
     flex-grow: 1;
-    max-width: 960px; /* Slightly narrower for focus */
-    margin: 30px auto;
-    padding: 50px; /* More padding */
-    min-height: 600px; /* Increased minimum height */
+    max-width: 960px;
+    margin: 20px auto;
+    padding: 50px;
+    min-height: 600px;
+    transform: perspective(1px) translateZ(0); /* Force hardware acceleration */
 }
 
 .footer {
     padding: 25px 40px;
     text-align: center;
     color: #666;
-    font-size: 1em; /* Slightly larger */
+    font-size: 0.95em;
     margin: 20px auto;
     max-width: 1200px;
     width: calc(100% - 40px);
+    transform: perspective(1px) translateZ(0); /* Force hardware acceleration */
 }
 
 /* Markdown specific styling */
 /* Loading Spinner */
 .loading-spinner {
-    border: 6px solid rgba(0, 0, 0, 0.1); /* Thicker border */
+    border: 6px solid rgba(0, 0, 0, 0.1);
     border-top: 6px solid var(--primary-color);
     border-radius: 50%;
-    width: 60px; /* Larger spinner */
+    width: 60px;
     height: 60px;
-    animation: spin 0.9s ease-in-out infinite; /* Smoother animation */
+    animation: spin 0.9s ease-in-out infinite;
     margin: 80px auto;
 }
 
@@ -202,7 +236,7 @@ body {
 }
 
 #content-area {
-    line-height: 1.75; /* Further increased line height */
+    line-height: 1.75;
 }
 
 #content-area h1,
@@ -212,18 +246,18 @@ body {
 #content-area h5,
 #content-area h6 {
     color: var(--text-dark);
-    font-weight: 800; /* Extra bold */
-    margin-top: 2.5em; /* More space above headings */
-    margin-bottom: 1em; /* More space below headings */
+    font-weight: 800;
+    margin-top: 2.5em;
+    margin-bottom: 1em;
 }
 
-#content-area h1 { font-size: 3em; } /* Even larger headings */
-#content-area h2 { font-size: 2.4em; border-bottom: 1px solid rgba(0,0,0,0.2); padding-bottom: 0.6em; } /* Stronger subtle border */
+#content-area h1 { font-size: 3em; }
+#content-area h2 { font-size: 2.4em; border-bottom: 1px solid rgba(0,0,0,0.2); padding-bottom: 0.6em; }
 #content-area h3 { font-size: 2em; }
 #content-area h4 { font-size: 1.6em; }
 
 #content-area p {
-    margin-bottom: 1.5em; /* More line spacing */
+    margin-bottom: 1.5em;
     font-weight: 300;
     color: var(--text-light);
 }
@@ -242,23 +276,23 @@ body {
 #content-area ul,
 #content-area ol {
     margin-bottom: 1.5em;
-    padding-left: 35px; /* More padding */
+    padding-left: 35px;
 }
 
 #content-area code {
     background-color: rgba(0, 0, 0, 0.08);
-    padding: 5px 8px; /* More padding */
-    border-radius: 8px; /* More rounded */
+    padding: 5px 8px;
+    border-radius: 8px;
     font-size: 0.95em;
 }
 
 #content-area pre {
-    background-color: rgba(0, 0, 0, 0.8); /* Darker background for code blocks */
-    color: #e0e0e0; /* Lighter code text */
-    padding: 30px; /* More padding */
-    border-radius: 12px; /* More rounded */
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #e0e0e0;
+    padding: 30px;
+    border-radius: 12px;
     margin-bottom: 2em;
-    box-shadow: inset 0 4px 10px rgba(0,0,0,0.4); /* Clearer inner shadow */
+    box-shadow: inset 0 4px 10px rgba(0,0,0,0.4);
 }
 
 #content-area pre code {
@@ -270,28 +304,28 @@ body {
 }
 
 #content-area blockquote {
-    border-left: 8px solid var(--primary-color); /* Thicker accent border */
-    padding-left: 25px; /* More padding */
+    border-left: 8px solid var(--primary-color);
+    padding-left: 25px;
     color: #555;
-    background-color: rgba(0, 0, 0, 0.04); /* Slightly more pronounced subtle background */
-    border-radius: 10px; /* More rounded */
+    background-color: rgba(0, 0, 0, 0.04);
+    border-radius: 10px;
     padding-top: 20px;
     padding-bottom: 20px;
 }
 
 #content-area table {
-    border-radius: 12px; /* More rounded */
+    border-radius: 12px;
     margin-bottom: 2em;
 }
 
 #content-area th,
 #content-area td {
-    border: 1px solid rgba(0, 0, 0, 0.18); /* Stronger subtle borders */
-    padding: 18px; /* More padding */
+    border: 1px solid rgba(0, 0, 0, 0.18);
+    padding: 18px;
 }
 
 #content-area th {
-    background-color: rgba(0, 0, 0, 0.1); /* Stronger subtle header background */
+    background-color: rgba(0, 0, 0, 0.1);
     font-weight: 700;
 }
 
@@ -314,7 +348,7 @@ body {
     }
 
     .main-nav a {
-        padding: 10px 0; /* More padding */
+        padding: 10px 0;
         display: block;
         text-align: left;
         font-size: 1.05em;
@@ -332,6 +366,7 @@ body {
         -webkit-backdrop-filter: none;
         padding: 0;
         margin-top: 0;
+        pointer-events: auto; /* Always allow interaction */
     }
 
     .dropdown:hover .dropdown-content {
@@ -342,17 +377,17 @@ body {
     }
 
     .dropdown-content a {
-        padding-left: 50px; /* More indent for dropdown items */
+        padding-left: 50px;
         text-align: left;
     }
 
     .site-title {
-        margin-bottom: 15px; /* More space below title */
+        margin-bottom: 15px;
     }
 
     .main-content {
         margin: 15px;
-        padding: 30px; /* More padding */
+        padding: 30px;
     }
 
     .header, .footer {
@@ -366,11 +401,11 @@ body {
 
 @media (max-width: 600px) {
     .header, .footer, .main-content {
-        border-radius: 12px; /* Less rounded for smaller screens */
+        border-radius: 12px;
     }
 
     .header-content {
-        padding: 0 15px; /* More padding */
+        padding: 0 15px;
     }
 
     .site-title {
