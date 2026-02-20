@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const loadContent = async (path) => {
-        let filePath = `/docs/product-hub/content/`;
+        let filePath = `/content/`;
         if (path === 'home') {
             // For home, we'll manually set content or fetch a specific home markdown if exists
             contentArea.innerHTML = `
