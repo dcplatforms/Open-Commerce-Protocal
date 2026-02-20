@@ -33,24 +33,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const BASE_URL = getBasePath();
 
-    const renderHomeContent = () => {
-        contentArea.innerHTML = "
-            <h2>Welcome to the Open Commerce Protocol Product Hub</h2>
-            <p>Explore the SDK, API documentation, integration guides, and security best practices for building secure and efficient open commerce applications.</p>
-            <p>The Open Commerce Protocol (OCP) is an open-source SDK designed to revolutionize commerce enablement by providing a secure, tokenized payment system. It powers the Open Commerce Initiative (OCI), focusing on next-generation financial applications, particularly in \"Agentic Commerce\" and Web3-integrated wallets.</p>
-            <p>OCP transforms traditional payment processing into a dynamic commerce layer, enabling businesses and developers to create autonomous agents with predefined spending limits, authorized counterparties, and trustless automation.</p>
-            <h3>Get Started Today!</h3>
-            <p>Head over to the <a href=\"#getting-started\" data-path=\"getting-started\">Getting Started</a> guide to begin your journey with OCP.</p>
-        ";
-    };
-
     const loadContent = async (path) => {
         contentArea.innerHTML = '<div class="loading-spinner"></div>'; // Show loading spinner
         let markdownPath = `${BASE_URL}content/`;
 
-        if (path === 'home') {
-            renderHomeContent();
-            return;
+        if (!path || path === 'home') {
+            path = 'home'; // Ensure 'home' is the path if not specified or explicitly home
         }
 
         markdownPath += `${path}.md`;
@@ -64,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
             contentArea.innerHTML = marked.parse(markdownText);
         } catch (error) {
             console.error("Error loading markdown content:", error);
-            contentArea.innerHTML = marked.parse(`# Error\nFailed to load documentation for \"${path}\".\nPlease check the URL or try navigating from the home page.`);
+            contentArea.innerHTML = marked.parse(`# Error\nFailed to load documentation for "${path}".\nPlease check the URL or try navigating from the home page.`);
         } finally {
             window.scrollTo(0, 0); // Scroll to top after loading content or error
         }
