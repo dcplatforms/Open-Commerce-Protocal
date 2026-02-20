@@ -1,24 +1,30 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;800&display=swap'); /* Added 800 for extra bold contrast */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;800&family=Montserrat:wght@300;400;500;600;700&display=swap'); /* Added Montserrat for headings */
 
 :root {
-    --glass-color: rgba(255, 255, 255, 0.08); /* Even more transparent glass for liquid feel */
-    --glass-border: rgba(255, 255, 255, 0.15); /* Lighter, subtle border */
-    --glass-shadow: rgba(0, 0, 0, 0.08); /* Subtle shadow for depth */
-    --text-dark: #1a1a1a;
-    --text-light: #444; /* Slightly lighter text for better contrast on blurred backgrounds */
-    --primary-color: #007bff;
-    --accent-color: #535bf2;
-    --bg-gradient-start: #e0eafc;
-    --bg-gradient-end: #cfdef3;
+    /* Refined Color Palette (Cool Tones with Vibrant Accents) */
+    --bg-gradient-start: #e2e8f0; /* Light cool gray-blue */
+    --bg-gradient-end: #cfd8dc;   /* Slightly darker cool gray-blue */
 
-    /* New variables for frosted texture */
+    --glass-base-color: 255, 255, 255; /* Base white for glass */
+    --glass-color: rgba(var(--glass-base-color), 0.07); /* Even more transparent glass */
+    --glass-border: rgba(var(--glass-base-color), 0.18); /* Subtle, lighter border */
+    --glass-shadow: rgba(0, 0, 0, 0.06); /* Softer shadow */
+
+    --text-dark: #1f2937; /* Dark charcoal for primary text */
+    --text-light: #4b5563; /* Medium gray for secondary text/paragraphs */
+    --text-subtle: #6b7280; /* Even lighter gray */
+
+    --primary-color: #3b82f6; /* Vibrant blue for accents and links */
+    --accent-color: #6366f1; /* Complementary indigo for hover/secondary accents */
+
+    /* Frosted texture - unchanged as it's effective */
     --frosted-texture: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="4" height="4" viewBox="0 0 4 4"><circle fill="%23fff" cx="2" cy="2" r="0.5"/></svg>');
-    --frosted-texture-opacity: 0.05;
+    --frosted-texture-opacity: 0.04; /* Slightly less opaque for more subtlety */
 }
 
 body {
     font-family: 'Inter', sans-serif;
-    line-height: 1.7; /* Increased line height for better readability */
+    line-height: 1.75; /* Increased line height for better readability */
     font-weight: 400;
     color: var(--text-light);
     margin: 0;
@@ -27,8 +33,8 @@ body {
     min-height: 100vh;
     background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
     background-attachment: fixed;
-    background-size: cover; /* Ensure background covers entire area */
-    overflow-x: hidden; /* Prevent horizontal scroll */
+    background-size: cover;
+    overflow-x: hidden;
 }
 
 .layout-container {
@@ -40,15 +46,16 @@ body {
 
 /* Glassmorphism base style */
 .glassmorphism {
-    position: relative; /* For pseudo-element */
+    position: relative;
     background-color: var(--glass-color);
-    backdrop-filter: blur(28px) saturate(220%); /* Stronger blur, more saturation for liquid crystal */
-    -webkit-backdrop-filter: blur(28px) saturate(220%);
+    backdrop-filter: blur(30px) saturate(250%) brightness(1.1); /* Stronger blur, saturation, and brightness for liquid crystal */
+    -webkit-backdrop-filter: blur(30px) saturate(250%) brightness(1.1);
     border: 1px solid var(--glass-border);
-    box-shadow: 0 10px 40px var(--glass-shadow), 0 0 0px 1px rgba(255,255,255,0.1); /* Layered shadow for depth */
-    border-radius: 20px; /* Even more pronounced rounded corners */
-    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Smooth cubic-bezier transition */
+    box-shadow: 0 12px 48px var(--glass-shadow), 0 0 0px 1px rgba(var(--glass-base-color),0.1); /* Refined shadow for depth */
+    border-radius: 24px; /* Even more pronounced rounded corners */
+    transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Smoother cubic-bezier transition */
     overflow: hidden; /* Ensure pseudo-element stays within bounds */
+    transform: perspective(1px) translateZ(0); /* Forcing hardware acceleration */
 }
 
 /* Frosted texture overlay */
@@ -60,28 +67,34 @@ body {
     right: 0;
     bottom: 0;
     background-image: var(--frosted-texture);
-    background-size: 4px 4px; /* Size of the texture pattern */
+    background-size: 4px 4px;
     opacity: var(--frosted-texture-opacity);
-    pointer-events: none; /* Allow clicks to pass through */
-    mix-blend-mode: soft-light; /* Blend with background */
-    z-index: -1; /* Behind content */
+    pointer-events: none;
+    mix-blend-mode: soft-light;
+    z-index: 0; /* Behind content, but on top of glass background */
 }
+
+/* Main content and header elements should have z-index > 0 to be above ::before */
+.header-content, .main-nav, #content-area, .footer-content {
+    position: relative;
+    z-index: 1;
+}
+
 
 /* Hover effect for glassmorphism elements - adding subtle 3D lift */
 .glassmorphism:hover {
-    box-shadow: 0 15px 60px rgba(0,0,0,0.15), 0 0 0px 1px rgba(255,255,255,0.15); /* Stronger lift on hover */
-    transform: translateY(-5px) scale(1.01); /* More pronounced lift and slight scale */
+    box-shadow: 0 18px 70px rgba(0,0,0,0.18), 0 0 0px 1px rgba(var(--glass-base-color),0.2); /* Stronger lift on hover */
+    transform: translateY(-7px) scale(1.01); /* More pronounced lift and slight scale */
 }
 
 .header {
-    padding: 18px 40px; /* More padding */
+    padding: 20px 45px; /* More padding */
     position: sticky;
-    top: 20px; /* Stay slightly off the top */
+    top: 25px; /* Stay slightly off the top */
     z-index: 1000;
-    margin: 20px auto; /* Centered with more margin from edges */
+    margin: 25px auto; /* Centered with more margin from edges */
     max-width: 1200px;
-    width: calc(100% - 40px); /* Account for margin */
-    transform: perspective(1px) translateZ(0); /* Force hardware acceleration */
+    width: calc(100% - 50px); /* Account for margin */
 }
 
 .header-content {
@@ -91,25 +104,26 @@ body {
 }
 
 .site-title {
-    font-size: 2.4em; /* Larger title */
-    font-weight: 800;
+    font-family: 'Montserrat', sans-serif; /* Use Montserrat for titles */
+    font-size: 2.6em; /* Larger title */
+    font-weight: 700;
     color: var(--text-dark);
     text-decoration: none;
-    letter-spacing: -1.2px; /* Tighter letter spacing */
-    text-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Clearer text shadow */
+    letter-spacing: -1.5px; /* Tighter letter spacing */
+    text-shadow: 0 2px 5px rgba(0,0,0,0.15); /* Clearer text shadow */
     display: flex;
     align-items: center;
-    gap: 10px; /* Space between icon and text */
+    gap: 12px; /* Space between icon and text */
     transition: all 0.3s ease-in-out;
 }
 
 .site-title:hover {
     color: var(--primary-color);
-    transform: scale(1.02);
+    transform: scale(1.03); /* More pronounced scale */
 }
 
 .site-title i {
-    font-size: 0.9em; /* Adjust icon size relative to text */
+    font-size: 0.85em; /* Adjust icon size relative to text */
     color: var(--primary-color);
     transition: color 0.3s ease;
 }
@@ -123,7 +137,7 @@ body {
     margin: 0;
     padding: 0;
     display: flex;
-    gap: 40px; /* Increased gap */
+    gap: 45px; /* Increased gap */
 }
 
 .main-nav li {
@@ -134,19 +148,19 @@ body {
     color: var(--text-dark);
     text-decoration: none;
     font-weight: 500;
-    font-size: 1.1em;
-    padding: 10px 0; /* More vertical padding */
+    font-size: 1.15em; /* Slightly larger */
+    padding: 12px 0; /* More vertical padding */
     display: flex;
     align-items: center;
-    gap: 8px; /* Space between icon and text */
+    gap: 10px; /* Space between icon and text */
     transition: color 0.3s ease, transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), text-shadow 0.3s ease;
-    position: relative; /* For underline effect */
+    position: relative;
 }
 
 .main-nav a:hover {
     color: var(--primary-color);
-    transform: translateY(-5px); /* More pronounced hover lift */
-    text-shadow: 0 0 12px rgba(0, 123, 255, 0.6); /* Brighter glow */
+    transform: translateY(-6px); /* More pronounced hover lift */
+    text-shadow: 0 0 15px rgba(59, 130, 246, 0.7); /* Brighter glow from primary color */
 }
 
 /* Subtle underline effect */
@@ -154,8 +168,8 @@ body {
     content: '';
     position: absolute;
     width: 0;
-    height: 2px;
-    bottom: -5px;
+    height: 3px; /* Thicker underline */
+    bottom: -8px; /* More space from text */
     left: 0;
     background-color: var(--primary-color);
     transition: width 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
@@ -176,48 +190,49 @@ body {
 
 /* Dropdown styles */
 .dropdown-content {
-    display: none;
+    display: block; /* Always block for animation control */
     position: absolute;
-    min-width: 220px;
+    min-width: 240px; /* Wider dropdown */
     z-index: 1001;
     padding: 15px 0;
-    margin-top: 20px;
+    margin-top: 25px; /* More space from parent link */
     left: 50%;
-    transform: translateX(-50%) translateY(10px); /* Initial slight drop for animation */
+    transform: translateX(-50%) translateY(20px); /* Deeper initial drop for animation */
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.4s ease-out, visibility 0.4s ease-out, transform 0.4s ease-out; /* Smoother transition */
     transform-origin: top center;
     top: 100%;
-    pointer-events: none; /* Allow mouse to pass through when hidden */
+    pointer-events: none;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.2), 0 0 0px 1px rgba(var(--glass-base-color),0.2); /* Enhanced shadow for dropdowns */
+    border-radius: 16px; /* Consistent rounded corners */
 }
 
 .dropdown:hover .dropdown-content {
-    display: block;
     opacity: 1;
     visibility: visible;
     transform: translateX(-50%) translateY(0); /* Animate to final position */
-    pointer-events: auto; /* Enable interaction when visible */
+    pointer-events: auto;
 }
 
 .dropdown-content a {
-    padding: 12px 25px;
+    padding: 14px 28px; /* More padding */
     text-align: left;
-    font-size: 1em;
+    font-size: 1.05em; /* Slightly larger */
     font-weight: 300;
     color: var(--text-dark);
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px; /* More space for icon and text */
     width: 100%;
     box-sizing: border-box;
     transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
 }
 
 .dropdown-content a:hover {
-    background-color: rgba(0,0,0,0.12); /* Stronger subtle background hover */
+    background-color: rgba(var(--glass-base-color),0.2); /* More subtle background hover with glass base */
     color: var(--primary-color);
-    transform: translateX(5px); /* Slight slide effect on hover */
+    transform: translateX(8px); /* More pronounced slide effect on hover */
 }
 
 .main-content {
@@ -232,12 +247,17 @@ body {
 .footer {
     padding: 25px 40px;
     text-align: center;
-    color: #666;
+    color: var(--text-subtle); /* Use subtle text color */
     font-size: 0.95em;
     margin: 20px auto;
     max-width: 1200px;
     width: calc(100% - 40px);
     transform: perspective(1px) translateZ(0); /* Force hardware acceleration */
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 /* Markdown specific styling */
@@ -258,7 +278,7 @@ body {
 }
 
 #content-area {
-    line-height: 1.75;
+    line-height: 1.8; /* Further increased line height */
 }
 
 #content-area h1,
@@ -267,19 +287,20 @@ body {
 #content-area h4,
 #content-area h5,
 #content-area h6 {
+    font-family: 'Montserrat', sans-serif; /* Use Montserrat for headings */
     color: var(--text-dark);
-    font-weight: 800;
-    margin-top: 2.5em;
-    margin-bottom: 1em;
+    font-weight: 700; /* Regular bold for headings */
+    margin-top: 2.8em; /* More space above headings */
+    margin-bottom: 1em; /* More space below headings */
 }
 
-#content-area h1 { font-size: 3em; }
-#content-area h2 { font-size: 2.4em; border-bottom: 1px solid rgba(0,0,0,0.2); padding-bottom: 0.6em; }
-#content-area h3 { font-size: 2em; }
-#content-area h4 { font-size: 1.6em; }
+#content-area h1 { font-size: 3.2em; } /* Even larger headings */
+#content-area h2 { font-size: 2.5em; border-bottom: 1px solid rgba(var(--glass-base-color),0.4); padding-bottom: 0.8em; } /* Stronger, glass-like subtle border */
+#content-area h3 { font-size: 2.1em; }
+#content-area h4 { font-size: 1.7em; }
 
 #content-area p {
-    margin-bottom: 1.5em;
+    margin-bottom: 1.6em; /* More line spacing */
     font-weight: 300;
     color: var(--text-light);
 }
@@ -297,24 +318,24 @@ body {
 
 #content-area ul,
 #content-area ol {
-    margin-bottom: 1.5em;
-    padding-left: 35px;
+    margin-bottom: 1.6em;
+    padding-left: 40px; /* More padding */
 }
 
 #content-area code {
-    background-color: rgba(0, 0, 0, 0.08);
-    padding: 5px 8px;
-    border-radius: 8px;
-    font-size: 0.95em;
+    background-color: rgba(var(--glass-base-color),0.2); /* Glass-like background for inline code */
+    padding: 6px 10px; /* More padding */
+    border-radius: 10px; /* More rounded */
+    font-size: 0.9em;
 }
 
 #content-area pre {
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: rgba(0, 0, 0, 0.85); /* Darker background for code blocks */
     color: #e0e0e0;
-    padding: 30px;
-    border-radius: 12px;
-    margin-bottom: 2em;
-    box-shadow: inset 0 4px 10px rgba(0,0,0,0.4);
+    padding: 35px; /* More padding */
+    border-radius: 15px; /* More rounded */
+    margin-bottom: 2.5em;
+    box-shadow: inset 0 5px 12px rgba(0,0,0,0.5); /* Stronger inner shadow */
 }
 
 #content-area pre code {
@@ -327,28 +348,31 @@ body {
 
 #content-area blockquote {
     border-left: 8px solid var(--primary-color);
-    padding-left: 25px;
-    color: #555;
-    background-color: rgba(0, 0, 0, 0.04);
-    border-radius: 10px;
-    padding-top: 20px;
-    padding-bottom: 20px;
+    padding-left: 28px; /* More padding */
+    color: var(--text-subtle);
+    background-color: rgba(var(--glass-base-color),0.05); /* More subtle glass-like background */
+    border-radius: 12px; /* More rounded */
+    padding-top: 25px;
+    padding-bottom: 25px;
 }
 
 #content-area table {
-    border-radius: 12px;
-    margin-bottom: 2em;
+    border-radius: 15px; /* More rounded */
+    margin-bottom: 2.5em;
+    background-color: rgba(var(--glass-base-color),0.1); /* Subtle background for table */
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05); /* Subtle shadow for table */
 }
 
 #content-area th,
 #content-area td {
-    border: 1px solid rgba(0, 0, 0, 0.18);
-    padding: 18px;
+    border: 1px solid rgba(var(--glass-base-color), 0.25); /* Stronger glass-like borders */
+    padding: 20px; /* More padding */
 }
 
 #content-area th {
-    background-color: rgba(0, 0, 0, 0.1);
-    font-weight: 700;
+    background-color: rgba(var(--glass-base-color), 0.15); /* Stronger subtle header background */
+    font-weight: 600;
+    color: var(--text-dark);
 }
 
 /* --- Responsive Design --- */
@@ -389,13 +413,14 @@ body {
         padding: 0;
         margin-top: 0;
         pointer-events: auto; /* Always allow interaction */
+        opacity: 1; /* Always visible in mobile */
+        visibility: visible;
+        transform: none;
+        transition: none;
     }
 
     .dropdown:hover .dropdown-content {
-        display: block;
-        opacity: 1;
-        visibility: visible;
-        transform: translateX(0);
+        transform: none;
     }
 
     .dropdown-content a {
