@@ -15,22 +15,24 @@ const logger = require('./utils/logger');
 const WalletService = require('./services/wallet');
 const TokenizationService = require('./services/tokenization');
 const MobilePaymentService = require('./services/mobilePayment');
-const AgentService = require('./services/agent'); // New
-const UCPService = require('./services/ucp');     // New
+const AgentService = require('./services/agent');
+const A2AService = require('./services/a2aService');
+const UCPService = require('./services/ucp');
 
 const walletRoutes = require('./routes/wallet');
 const tokenizationRoutes = require('./routes/tokenization');
 const mobilePaymentRoutes = require('./routes/mobilePayment');
-const agentRoutes = require('./routes/agent');         // New
-const ucpRoutes = require('./routes/ucp');             // New
+const agentRoutes = require('./routes/agent');
+const ucpRoutes = require('./routes/ucp');
 
 // Initialize services
 const db = require('./utils/database');
 const walletService = new WalletService(db);
 const tokenizationService = new TokenizationService();
 const mobilePaymentService = new MobilePaymentService(tokenizationService, walletService);
-const agentService = new AgentService(db); // New
-const ucpService = new UCPService();       // New
+const agentService = new AgentService(db);
+const a2aService = new A2AService(walletService, db);
+const ucpService = new UCPService(a2aService);
 
 // Initialize Express app
 const app = express();

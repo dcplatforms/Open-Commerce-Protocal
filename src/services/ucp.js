@@ -2,100 +2,119 @@
  * Universal Commerce Protocol (UCP) Service
  *
  * Facilitates standardized communication of commerce intents across various platforms.
- * Parses, validates, and processes UCP-compliant messages.
+ * Parses, validates, and processes UCP-compliant messages, translating them into
+ * system-specific transaction logic via A2AService.
  */
 
-const crypto = require('crypto');
-const Joi = require('joi'); // For schema validation
+const Joi = require('joi');
 
 class UCPService {
-  constructor(config = {}) {
+  constructor(a2aService, config = {}) {
+    this.a2aService = a2aService;
     this.config = config;
-    // Define a basic schema for UCP intent validation
+
+    // Standard UCP Schema
     this.ucpIntentSchema = Joi.object({
-      protocolVersion: Joi.string().required(),
-      intentType: Joi.string().valid('purchase', 'transfer', 'request', 'offer').required(),
-      data: Joi.object().required(), // Data structure will vary by intentType
-      agentId: Joi.string().required(),
-      walletId: Joi.string().optional(), // Wallet might not always be directly involved
+      ver: Joi.string().required(),
+      intent: Joi.string().valid('transfer', 'payment', 'purchase', 'request', 'offer').required(),
+      sender: Joi.object({
+        agent_id: Joi.string().required(),
+        wallet_id: Joi.string().optional()
+      }).required(),
+      recipient: Joi.object({
+        agent_id: Joi.string().required(),
+        wallet_id: Joi.string().optional()
+      }).optional(),
+      amount: Joi.object({
+        value: Joi.number().positive().required(),
+        currency: Joi.string().default('USD')
+      }).optional(),
+      data: Joi.object().optional(),
       timestamp: Joi.date().iso().default(() => new Date())
     });
   }
 
   /**
-   * Process a UCP-compliant commerce intent
-   * @param {Object} ucpIntent - The UCP intent object
-   * @returns {Promise<Object>} Processing result
+   * Process a UCP Payload
+   * @param {Object} payload - The raw UCP JSON payload
    */
-  async processIntent(ucpIntent) {
+  async processPayload(payload) {
     try {
       // 1. Validate the UCP intent against schema
-      const { error, value } = this.ucpIntentSchema.validate(ucpIntent);
+      const { error, value } = this.ucpIntentSchema.validate(payload, { stripUnknown: true });
       if (error) {
         throw new Error(`UCP Intent validation failed: ${error.details.map(x => x.message).join(', ')}`);
       }
 
-      // Assign validated value back
-      ucpIntent = value;
+      const validatedPayload = value;
+      const { intent } = validatedPayload;
 
-      // 2. Simulate intent processing based on type
-      let transactionId = `ucp_txn_${crypto.randomBytes(8).toString('hex')}`;
-      let message = 'UCP intent processed successfully.';
-
-      switch (ucpIntent.intentType) {
-        case 'purchase':
-          // In a real scenario, this would involve WalletService (deduct funds),
-          // AgentService (policy check), InventoryService, etc.
-          message = `Purchase intent for agent ${ucpIntent.agentId} processed.`;
-          break;
+      switch (intent) {
         case 'transfer':
-          // In a real scenario, this would involve WalletService.transfer
-          message = `Transfer intent for agent ${ucpIntent.agentId} processed.`;
-          break;
-        case 'request':
-          message = `Request intent for agent ${ucpIntent.agentId} received.`;
-          break;
-        case 'offer':
-          message = `Offer intent from agent ${ucpIntent.agentId} received.`;
-          break;
+        case 'payment':
+          return this._handleTransfer(validatedPayload);
+        case 'purchase':
+          // Future implementation: integration with Inventory/Order services
+          return { status: 'success', message: 'Purchase intent received (simulation)', payload: validatedPayload };
         default:
-          message = `Unknown intent type '${ucpIntent.intentType}'. Processed as generic intent.`;
-          break;
+          return { status: 'success', message: `UCP intent '${intent}' received and logged.`, payload: validatedPayload };
       }
-
-      // 3. Return a mock result
-      return {
-        status: 'success',
-        transactionId: transactionId,
-        message: message,
-        processedAt: new Date().toISOString(),
-        originalIntent: ucpIntent
-      };
     } catch (error) {
-      throw this._handleError('processIntent', error);
+      throw this._handleError('processPayload', error);
     }
   }
 
   /**
+   * Handle transfer/payment intents via A2AService
+   * @private
+   */
+  async _handleTransfer(payload) {
+    const { sender, recipient, amount } = payload;
+
+    if (!recipient?.agent_id) {
+      throw new Error('Missing recipient agent_id for transfer');
+    }
+    if (!amount?.value) {
+      throw new Error('Missing amount value');
+    }
+
+    return this.a2aService.executeTransfer({
+      fromAgentId: sender.agent_id,
+      toAgentId: recipient.agent_id,
+      amount: amount.value,
+      ucpPayload: payload
+    });
+  }
+
+  /**
    * Get UCP Schema (conceptual)
-   * @returns {Object} JSON Schema for UCP
    */
   getUcpSchema() {
-    // In a real implementation, this would return a more comprehensive JSON Schema
     return {
       $schema: "http://json-schema.org/draft-07/schema#",
       title: "Universal Commerce Protocol Intent",
-      description: "A standardized message for communicating commerce intents.",
       type: "object",
       properties: {
-        protocolVersion: { type: "string", description: "Version of the UCP protocol" },
-        intentType: { type: "string", enum: ["purchase", "transfer", "request", "offer"], description: "Type of commerce intent" },
-        data: { type: "object", description: "Payload specific to the intentType" },
-        agentId: { type: "string", description: "Identifier of the agent initiating the intent" },
-        walletId: { type: "string", description: "Optional: Identifier of the wallet involved" },
-        timestamp: { type: "string", format: "date-time", description: "Timestamp of intent creation" }
+        ver: { type: "string" },
+        intent: { type: "string", enum: ["transfer", "payment", "purchase", "request", "offer"] },
+        sender: {
+          type: "object",
+          properties: { agent_id: { type: "string" } },
+          required: ["agent_id"]
+        },
+        recipient: {
+          type: "object",
+          properties: { agent_id: { type: "string" } }
+        },
+        amount: {
+          type: "object",
+          properties: {
+            value: { type: "number" },
+            currency: { type: "string" }
+          }
+        }
       },
-      required: ["protocolVersion", "intentType", "data", "agentId"]
+      required: ["ver", "intent", "sender"]
     };
   }
 

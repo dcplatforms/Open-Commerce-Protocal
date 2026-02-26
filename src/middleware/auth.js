@@ -4,11 +4,33 @@
  * Validates JWT tokens and protects routes.
  */
 
+const jwt = require('jsonwebtoken');
+const config = require('../config');
+const logger = require('../utils/logger');
+
 const authenticate = (req, res, next) => {
-  // In a real application, you would validate a JWT token here.
-  // For this example, we'll just simulate an authenticated user.
-  req.user = { id: 'user123', roles: ['user'] };
-  next();
+  const authHeader = req.headers.authorization;
+
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    return res.status(401).json({
+      success: false,
+      error: 'Authentication required'
+    });
+  }
+
+  const token = authHeader.split(' ')[1];
+
+  try {
+    const decoded = jwt.verify(token, config.security.jwtSecret);
+    req.user = decoded;
+    next();
+  } catch (error) {
+    logger.warn('Invalid token attempt:', error.message);
+    return res.status(401).json({
+      success: false,
+      error: 'Invalid or expired token'
+    });
+  }
 };
 
 const authorize = (roles = []) => {

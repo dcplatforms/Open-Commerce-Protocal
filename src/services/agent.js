@@ -9,8 +9,7 @@ const crypto = require('crypto');
 
 class AgentService {
   constructor(database, config = {}) {
-    this.db = database; // Assuming agents will eventually be persisted in a database
-    this.agents = new Map(); // In-memory store for now
+    this.db = database;
     this.config = {
       defaultSpendingLimit: config.defaultSpendingLimit || 1000,
       defaultAuthorizedCounterparties: config.defaultAuthorizedCounterparties || []
@@ -21,25 +20,33 @@ class AgentService {
    * Register a new agent
    * @param {Object} params - Agent registration parameters
    * @param {string} params.name - Agent's name
+   * @param {string} params.ownerId - Owner's identifier
+   * @param {string} params.walletId - Associated wallet identifier
    * @param {Object} params.policy - Agent's policy (spending limits, counterparties)
    * @returns {Promise<Object>} Registered agent
    */
-  async registerAgent({ name, policy }) {
-    const agentId = `agent_${crypto.randomBytes(6).toString('hex')}`;
-    const newAgent = {
-      id: agentId,
-      name: name,
-      policy: {
-        spendingLimit: policy?.spendingLimit || this.config.defaultSpendingLimit,
-        authorizedCounterparties: policy?.authorizedCounterparties || this.config.defaultAuthorizedCounterparties
-      },
-      status: 'active',
-      createdAt: new Date(),
-      updatedAt: new Date()
-    };
-    this.agents.set(agentId, newAgent);
-    // In a real scenario, persist to database: await this.db.createAgent(newAgent);
-    return newAgent;
+  async registerAgent({ name, ownerId, walletId, type = 'personal', config: agentConfig }) {
+    try {
+      const newAgent = await this.db.createAgent({
+        name,
+        ownerId,
+        walletId,
+        type,
+        status: 'active',
+        config: {
+          limits: {
+            daily: agentConfig?.limits?.daily || 0,
+            perTransaction: agentConfig?.limits?.perTransaction || this.config.defaultSpendingLimit
+          },
+          authorizedCounterparties: agentConfig?.authorizedCounterparties || this.config.defaultAuthorizedCounterparties,
+          autoApprove: agentConfig?.autoApprove || false
+        },
+        metadata: {}
+      });
+      return newAgent;
+    } catch (error) {
+      throw this._handleError('registerAgent', error);
+    }
   }
 
   /**
@@ -48,41 +55,49 @@ class AgentService {
    * @returns {Promise<Object>} Agent object
    */
   async getAgent(agentId) {
-    const agent = this.agents.get(agentId);
-    if (!agent) {
-      throw new Error('Agent not found');
+    try {
+      const agent = await this.db.findAgentById(agentId);
+      if (!agent) {
+        throw new Error('Agent not found');
+      }
+      return agent;
+    } catch (error) {
+      throw this._handleError('getAgent', error);
     }
-    // In a real scenario: await this.db.findAgentById(agentId);
-    return agent;
   }
 
   /**
    * Get all registered agents
    * @returns {Promise<Array>} List of agent objects
    */
-  async getAllAgents() {
-    return Array.from(this.agents.values());
-    // In a real scenario: await this.db.findAllAgents();
+  async getAllAgents(filter = {}) {
+    try {
+      return await this.db.findAllAgents(filter);
+    } catch (error) {
+      throw this._handleError('getAllAgents', error);
+    }
   }
 
   /**
    * Update an agent's policy
    * @param {string} agentId - Agent identifier
-   * @param {Object} newPolicy - New policy details
-   * @param {number} newPolicy.spendingLimit - New spending limit
-   * @param {Array<string>} newPolicy.authorizedCounterparties - New list of authorized counterparties
+   * @param {Object} newConfig - New configuration details
    * @returns {Promise<Object>} Updated agent object
    */
-  async updateAgentPolicy(agentId, newPolicy) {
-    const agent = await this.getAgent(agentId); // Will throw if not found
-    agent.policy = {
-      ...agent.policy,
-      ...newPolicy
-    };
-    agent.updatedAt = new Date();
-    this.agents.set(agentId, agent);
-    // In a real scenario: await this.db.updateAgent(agentId, { policy: agent.policy, updatedAt: agent.updatedAt });
-    return agent;
+  async updateAgentPolicy(agentId, newConfig) {
+    try {
+      const agent = await this.getAgent(agentId);
+      const updatedAgent = await this.db.updateAgent(agentId, {
+        config: {
+          ...agent.config,
+          ...newConfig
+        },
+        updatedAt: new Date()
+      });
+      return updatedAgent;
+    } catch (error) {
+      throw this._handleError('updateAgentPolicy', error);
+    }
   }
 
   /**
