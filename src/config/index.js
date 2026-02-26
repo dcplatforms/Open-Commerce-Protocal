@@ -125,6 +125,11 @@ function validateConfig() {
     errors.push('ENCRYPTION_KEY is required in production');
   }
 
+  // Database URL is always required
+  if (!process.env.DATABASE_URL && config.server.nodeEnv === 'production') {
+    errors.push('DATABASE_URL is required in production');
+  }
+
   if (errors.length > 0) {
     throw new Error(`Configuration errors:\n${errors.join('\n')}`);
   }

@@ -9,8 +9,7 @@ const mongoose = require('mongoose');
 const refundSchema = new mongoose.Schema({
   transactionId: {
     type: String,
-    required: true,
-    index: true
+    required: true
   },
   walletId: {
     type: String,
@@ -91,7 +90,6 @@ const refundSchema = new mongoose.Schema({
 // Indexes
 refundSchema.index({ walletId: 1, createdAt: -1 });
 refundSchema.index({ status: 1, createdAt: -1 });
-refundSchema.index({ transactionId: 1 });
 
 // Virtual for refund ID
 refundSchema.virtual('id').get(function() {

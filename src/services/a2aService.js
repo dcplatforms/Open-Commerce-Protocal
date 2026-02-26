@@ -22,46 +22,50 @@ class A2AService {
      * @param {Object} params.ucpPayload - The original UCP intent/payload
      */
     async executeTransfer({ fromAgentId, toAgentId, amount, ucpPayload = {} }) {
-        // 1. Validate Agents
-        const fromAgent = await Agent.findById(fromAgentId);
-        if (!fromAgent || fromAgent.status !== 'active') {
-            throw new Error(`Sender agent ${fromAgentId} not found or inactive`);
-        }
-
-        const toAgent = await Agent.findById(toAgentId);
-        if (!toAgent || toAgent.status !== 'active') {
-            throw new Error(`Recipient agent ${toAgentId} not found or inactive`);
-        }
-
-        // 2. Policy Checks (Sender)
-        await this._validateAgentPolicy(fromAgent, toAgentId, amount);
-
-        // 3. Execute Wallet Transfer
-        const transferResult = await this.walletService.transfer({
-            fromWalletId: fromAgent.walletId,
-            toWalletId: toAgent.walletId,
-            amount,
-            description: `A2A Transfer: ${fromAgent.name} -> ${toAgent.name}`,
-            metadata: { // Pass metadata for Transaction creation
-                agentId: fromAgentId,
-                counterpartyAgentId: toAgentId,
-                ucpPayload,
-                type: 'a2a_transfer'
+        try {
+            // 1. Validate Agents
+            const fromAgent = await Agent.findById(fromAgentId);
+            if (!fromAgent || fromAgent.status !== 'active') {
+                throw new Error(`Sender agent ${fromAgentId} not found or inactive`);
             }
-        });
 
-        // 4. Update Agent Usage (if we were tracking daily usage in db, we'd do it here)
-        // For now, limits are stateless checks against config.
-        // In a real implementation, we would query daily volume or update a usage record.
+            const toAgent = await Agent.findById(toAgentId);
+            if (!toAgent || toAgent.status !== 'active') {
+                throw new Error(`Recipient agent ${toAgentId} not found or inactive`);
+            }
 
-        return {
-            success: true,
-            transferId: transferResult.transferId,
-            timestamp: new Date(),
-            fromAgent: fromAgent.name,
-            toAgent: toAgent.name,
-            amount
-        };
+            // 2. Policy Checks (Sender)
+            await this._validateAgentPolicy(fromAgent, toAgentId, amount);
+
+            // 3. Execute Wallet Transfer
+            const transferResult = await this.walletService.transfer({
+                fromWalletId: fromAgent.walletId,
+                toWalletId: toAgent.walletId,
+                amount,
+                description: `A2A Transfer: ${fromAgent.name} -> ${toAgent.name}`,
+                metadata: { // Pass metadata for Transaction creation
+                    agentId: fromAgentId,
+                    counterpartyAgentId: toAgentId,
+                    ucpPayload,
+                    type: 'a2a_transfer'
+                }
+            });
+
+            // 4. Update Agent Usage (if we were tracking daily usage in db, we'd do it here)
+            // For now, limits are stateless checks against config.
+            // In a real implementation, we would query daily volume or update a usage record.
+
+            return {
+                success: true,
+                transferId: transferResult.transferId,
+                timestamp: new Date(),
+                fromAgent: fromAgent.name,
+                toAgent: toAgent.name,
+                amount
+            };
+        } catch (error) {
+            throw this._handleError('executeTransfer', error);
+        }
     }
 
     /**
@@ -83,6 +87,15 @@ class A2AService {
                 throw new Error(`Agent ${agent.id} is not authorized to trade with ${counterpartyId}`);
             }
         }
+    }
+
+    /**
+     * Handle and format errors
+     * @private
+     */
+    _handleError(method, error) {
+        console.error(`A2AService.${method} error:`, error);
+        return error instanceof Error ? error : new Error(error);
     }
 }
 

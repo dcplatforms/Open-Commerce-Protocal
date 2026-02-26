@@ -4,6 +4,13 @@ const walletRoutes = require('../../src/routes/wallet');
 const WalletService = require('../../src/services/wallet');
 
 jest.mock('../../src/services/wallet');
+jest.mock('../../src/middleware/auth', () => ({
+  authenticate: (req, res, next) => {
+    req.user = { id: 'user123' };
+    next();
+  },
+  authorize: () => (req, res, next) => next()
+}));
 
 describe('Wallet API', () => {
   let app;
@@ -18,7 +25,7 @@ describe('Wallet API', () => {
 
   describe('POST /api/v1/wallet', () => {
     it('should create a new wallet', async () => {
-      const wallet = { _id: 'some-id', userId: 'user123' };
+      const wallet = { id: 'some-id', userId: 'user123' };
       mockWalletService.createWallet.mockResolvedValue(wallet);
 
       const res = await request(app)

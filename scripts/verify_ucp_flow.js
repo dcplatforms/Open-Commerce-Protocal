@@ -6,15 +6,7 @@ const { Transaction } = require('../src/models/transaction');
 const { Wallet } = require('../src/models/wallet');
 
 // Mock DB wrapper for WalletService since it expects a db object with models attached
-// or methods. But looking at WalletService code, it expects `database` to have methods 
-// like findWalletById, createTransaction, updateWalletBalance etc.
-// Wait, looking at src/services/wallet.js:
-// `this.db = database;` 
-// `await this.db.findWalletByUserId(userId);`
-// So I need a DB adapter or I need to implement those methods.
-// Let's check src/models/index.js if it exists to see if there is a DB abstraction layer.
-
-// Let's create a simple DB adapter for the test
+// or methods.
 class DBAdapter {
     constructor() {
         this.Wallet = Wallet;
@@ -24,6 +16,7 @@ class DBAdapter {
 
     async findWalletById(id) { return Wallet.findById(id); }
     async findWalletByUserId(userId) { return Wallet.findOne({ userId }); }
+    async createWallet(data) { return Wallet.create(data); }
     async createTransaction(data) { return Transaction.create(data); }
     async updateTransaction(id, data) { return Transaction.findByIdAndUpdate(id, data, { new: true }); }
 
@@ -78,8 +71,7 @@ async function verify() {
             intent: 'transfer',
             sender: { agent_id: agent1.id },
             recipient: { agent_id: agent2.id },
-            amount: { value: 150, currency: 'USD' },
-            metadata: { orderId: 'testing-123' }
+            amount: { value: 150, currency: 'USD' }
         };
 
         const result = await ucpService.processPayload(ucpPayload);
@@ -96,7 +88,7 @@ async function verify() {
         if (updatedWallet2.balance !== 150) throw new Error('Wallet2 balance incorrect');
 
         // 4. Verify Transaction Record
-        const txs = await Transaction.find({ 'ucpPayload.metadata.orderId': 'testing-123' });
+        const txs = await Transaction.find({ 'ucpPayload.sender.agent_id': agent1.id });
         if (txs.length === 0) throw new Error('Transaction record not found');
         console.log('Transaction Verified:', txs[0].id);
 

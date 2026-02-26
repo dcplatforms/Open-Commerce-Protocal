@@ -48,7 +48,7 @@ class WalletService {
       }
 
       // Create wallet
-      const wallet = await this.db.Wallet.create({
+      const wallet = await this.db.createWallet({
         userId,
         balance: initialBalance,
         currency: currency || this.config.defaultCurrency,
