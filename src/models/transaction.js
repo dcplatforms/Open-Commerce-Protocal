@@ -45,8 +45,7 @@ const transactionSchema = new mongoose.Schema({
   },
   transferId: {
     type: String,
-    sparse: true,
-    index: true
+    sparse: true
   },
   refundId: {
     type: String,
@@ -108,7 +107,6 @@ transactionSchema.index({ walletId: 1, createdAt: -1 });
 transactionSchema.index({ walletId: 1, type: 1 });
 transactionSchema.index({ walletId: 1, status: 1 });
 transactionSchema.index({ createdAt: -1 });
-transactionSchema.index({ transferId: 1 }, { sparse: true });
 
 // Virtual for transaction ID
 transactionSchema.virtual('id').get(function () {

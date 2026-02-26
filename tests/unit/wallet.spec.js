@@ -7,10 +7,9 @@ describe('WalletService', () => {
 
   beforeEach(() => {
     mockDb = {
-      Wallet: {
-        create: jest.fn(),
-      },
+      createWallet: jest.fn(),
       findWalletByUserId: jest.fn(),
+      createTransaction: jest.fn(),
     };
     walletService = new WalletService(mockDb);
   });
@@ -20,18 +19,18 @@ describe('WalletService', () => {
       const walletData = { userId: 'user123' };
       const expectedWallet = {
         ...walletData,
-        _id: new mongoose.Types.ObjectId(),
+        id: 'some-id',
         currency: 'USD',
         balance: 0,
         status: 'active',
       };
       mockDb.findWalletByUserId.mockResolvedValue(null);
-      mockDb.Wallet.create.mockResolvedValue(expectedWallet);
+      mockDb.createWallet.mockResolvedValue(expectedWallet);
 
       const wallet = await walletService.createWallet(walletData);
 
       expect(mockDb.findWalletByUserId).toHaveBeenCalledWith('user123');
-      expect(mockDb.Wallet.create).toHaveBeenCalledWith(expect.objectContaining({
+      expect(mockDb.createWallet).toHaveBeenCalledWith(expect.objectContaining({
         userId: 'user123',
         currency: 'USD',
         balance: 0,
